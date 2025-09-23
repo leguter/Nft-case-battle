@@ -1,0 +1,39 @@
+/* components/CasesGrid.css */
+.casesGridContainer {
+  padding: 20px;
+  max-width: 1200px; /* Обмеження ширини контейнера */
+  margin: 0 auto;    /* Центрування */
+}
+
+.casesGridContainerH2 {
+  color: #E0E0E0;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 32px;
+  text-shadow: 0 0 10px rgba(0, 191, 255, 0.4); /* Легке світіння для заголовка */
+}
+
+.casesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Адаптивна сітка */
+  gap: 25px; /* Відступи між картками */
+  justify-content: center; /* Центрування карток у сітці */
+}
+
+/* Медіа-запити для адаптивності */
+@media (max-width: 768px) {
+  .casesGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Менші картки на планшетах */
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .casesGrid {
+    grid-template-columns: 1fr; /* Одна колонка на мобільних телефонах */
+    gap: 15px;
+  }
+  .caseCard {
+    width: 100%; /* Картка займає всю доступну ширину */
+  }
+}

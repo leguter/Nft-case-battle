@@ -1,8 +1,16 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
+  background-image: url('../public/bg.png'); /* Шлях до вашого зображення відносно CSS файлу */
+  background-size: cover; /* Зображення буде покривати весь контейнер */
+  background-position: center center; /* Центруємо зображення */
+  background-repeat: no-repeat; /* Запобігаємо повторенню зображення */
+  min-height: 100vh; /* Забезпечуємо, щоб фон займав всю висоту вікна */
+  width: 100%;       /* Забезпечуємо, щоб фон займав всю ширину */
+  /* Додатково: зафіксувати фон при скролі */
+  background-attachment: fixed;
 }
 
 .logo {
