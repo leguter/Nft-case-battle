@@ -2,7 +2,7 @@
 import { useParams, Link } from 'react-router-dom';
 import caseData from '../../data/cases'; // Масив з даними про кейси
 import CaseContent from '../../components/CaseContent/CaseContent'; // Компонент, що ви створили раніше
-
+import styles from './CasePage.module.css'; // Імпорт CSS-модуля
 function CasePage() {
   // Використовуємо useParams для отримання id з URL
   const { caseId } = useParams();
@@ -16,8 +16,8 @@ function CasePage() {
   }
 
   return (
-    <div className="case-page">
-      <Link to="/" className="back-button">← НАЗАД</Link>
+    <div className={styles.container}>
+      <Link to="/"  className={styles.btnBack}>← НАЗАД</Link>
       <CaseContent caseItem={caseItem} /> {/* Передаємо дані про кейс у компонент вмісту */}
     </div>
   );

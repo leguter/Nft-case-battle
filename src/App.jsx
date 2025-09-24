@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-    <Header />
+    {/* <Header /> */}
        <Router>
       <div className="app-container">
         <Header />

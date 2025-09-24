@@ -38,11 +38,13 @@ body {
   border-radius: 10px;
   padding: 20px;
   display: inline-block;
+  background-color: none;
 }
 
 .caseMainImage {
-  width: 200px;
+  width: 250px;
   height: auto;
+  background-color: none;
 }
 
 .authAlert {
@@ -121,4 +123,31 @@ body {
 
 .usd {
   color: #fff;
+}
+/* ____________________________ */
+@keyframes starSpin {
+  from {
+    transform: rotate(0deg); /* Початкове положення */
+  }
+  to {
+    transform: rotate(360deg); /* Кінцеве положення (повний оберт) */
+  }
+}
+
+/* Клас для застосування анімації */
+.rotatingStar {
+  /* Застосовуємо анімацію */
+  animation-name: starSpin;
+  /* Тривалість: 1.5 секунди на повний оберт */
+  animation-duration: 1.5s;
+  /* Швидкість: лінійна (рівномірна) */
+  animation-timing-function: linear;
+  /* Повторювати нескінченно */
+  animation-iteration-count: infinite;
+  /* Важливо: transform-origin встановлюємо в центр, щоб обертання було правильним */
+  transform-origin: center center;
+  
+  /* Можна додати розмір та стиль, якщо це не іконка, а div */
+  display: inline-block;
+  font-size: 1.2rem; /* Або будь-який потрібний розмір */
 }

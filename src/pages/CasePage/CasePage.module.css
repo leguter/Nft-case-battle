@@ -1,0 +1,14 @@
+.btnBack {
+  background-color: #2a2e4b;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-weight: bold;
+
+}
+.container {
+    margin-top: 20px;
+}
