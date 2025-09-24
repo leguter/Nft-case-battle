@@ -123,6 +123,12 @@ body {
 
 .usd {
   color: #fff;
+  /* width: 50px;
+  height: 20px; */
+  display: flex;
+  align-items: center;
+    flex-direction: row;
+    justify-content: center;
 }
 /* ____________________________ */
 @keyframes starSpin {
@@ -150,4 +156,18 @@ body {
   /* Можна додати розмір та стиль, якщо це не іконка, а div */
   display: inline-block;
   font-size: 1.2rem; /* Або будь-який потрібний розмір */
+}
+.ton {
+    /* display: flex; */
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    align-items: center;
+    flex-direction: row;
+    padding-left: 6px;
+    margin-top: auto;
+    margin-bottom: 2px;
+    /* margin-top: auto;
+    margin-bottom: auto; */
+    vertical-align: middle; 
 }

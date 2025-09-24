@@ -2,11 +2,11 @@
 import css from "./CaseCard.module.css"
 // Імпортуємо всі зображення, які можуть бути використані
 // Це найкраще робити, якщо у вас обмежена кількість зображень
-import knifeFadeImg from '../../../public/images-cases/1.jpg';
-import giftBoxImg from '../../../public/images-cases/1.jpg';
-import telegramPackImg from '../../../public/images-cases/1.jpg';
-import cryptoImg from '../../../public/images-cases/1.jpg';
-import pixelImg from '../../../public/images-cases/1.jpg';
+import knifeFadeImg from '../../../public/images-cases/g1.png';
+import giftBoxImg from '../../../public/images-cases/g2.png';
+import telegramPackImg from '../../../public/images-cases/g3.png';
+import cryptoImg from '../../../public/images-cases/g4.png';
+import pixelImg from '../../../public/images-cases/g5.png';
 // ... імпортуйте інші зображення
 
 // Мапуємо назви файлів на імпортовані модулі
