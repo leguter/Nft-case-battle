@@ -2,7 +2,7 @@
 const caseData = [
   {
     id: 'case-1',
-    name: 'Legendary Knife Fade',
+    name: 'Mystery Gift Box',
     image: '/public/images-cases/1.jpg', // Шлях до зображення кейса
     price: '4',
     stars: '740',
@@ -10,7 +10,7 @@ const caseData = [
   },
   {
     id: 'case-2',
-    name: 'Exclusive Gift Box',
+    name: 'Lucky Collectible Chest',
     image: '/public/images-cases/1.jpg',
     price: '0.5',
     stars: '100',
@@ -18,7 +18,7 @@ const caseData = [
   },
   {
     id: 'case-3',
-    name: 'Mega Telegram Pack',
+    name: 'Telegram Treasure Case',
     image: '/public/images-cases/2.jpg',
     price: '2',
     stars: '380',
@@ -26,7 +26,7 @@ const caseData = [
   },
   {
     id: 'case-4',
-    name: 'Crypto Key Treasure',
+    name: 'Stellar Gift Crate',
     image: '/public/images-cases/3.jpg',
     price: '5',
     stars: '900',
@@ -34,7 +34,7 @@ const caseData = [
   },
   {
     id: 'case-5',
-    name: 'Pixel Art Masterpiece',
+    name: 'Cosmic NFT Capsule',
     image: '/public/images-cases/4.jpg',
     price: '24',
     stars: '4600',

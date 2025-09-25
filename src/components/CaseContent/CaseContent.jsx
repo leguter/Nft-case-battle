@@ -50,16 +50,17 @@ const items = [
     type: 'Common' 
   },
 ];
-import photo from "../../../public/images-cases/case1.png"
+// import photo from "../../../public/images-cases/case1.png"
 
-const CaseContent = () => {
+const CaseContent = (caseItem) => {
+  console.log(caseItem.caseItem.name)
   return (
     <div className={styles.caseContentContainer}>
       <div className={styles.caseHeader}>
         {/* <button className={styles.backButton}>← НАЗАД</button> */}
-        <h1 className={styles.caseTitle}>VINTAGE CIGAR ALL IN</h1>
+        <h1 className={styles.caseTitle}>{caseItem.caseItem.name}</h1>
         <div className={styles.caseImageWrapper}>
-          <img src={photo} alt="Vintage Cigar All In Case" className={styles.caseMainImage} />
+          <img src={caseItem.caseItem.image} alt={caseItem.caseItem.name} className={styles.caseMainImage} />
         </div>
       </div>
 

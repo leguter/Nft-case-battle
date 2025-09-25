@@ -29,53 +29,61 @@
 
 }
 .btn {
-    margin-top: auto;
+    /* Кольори */
+     margin-top: auto;
     margin-right: 5px;
     margin-bottom: auto;
-  /* Розміри та відступи */
-  padding: 2px 8px; /* Внутрішні відступи: верх/низ 12px, ліво/право 28px */
-  border-radius: 8px; /* Заокруглені кути */
-  border: none;       /* Без стандартної рамки */
-  cursor: pointer;    /* Курсор-вказівник при наведенні */
- width: 90px;
+    width: 90px;
  height: 50px;
-  /* Фон - градієнт */
-  background: linear-gradient(
-    90deg,                 /* Напрямок градієнта: зліва направо */
-    #FF6B6B 0%,            /* Початок градієнта (червоно-помаранчевий) */
-    #FF4D4D 40%,           /* Середина градієнта (червоний) */
-    #A044FF 100%           /* Кінець градієнта (фіолетовий) */
-  );
-  /* Або, для більш "теплих" тонів, як на візуалізації: */
-   background: linear-gradient(
-    90deg,
-    #FFA500 0%,           /* Помаранчевий */
-    #FF4500 50%,           /* Червоно-помаранчевий */
-    #8A2BE2 100%           /* Синьо-фіолетовий */
-  ); 
+  background-color: #007bff; /* Яскраво-синій фон */
+  color: #ffffff;           /* Білий колір тексту */
+
+  /* Відступи та форма */
+   padding: 2px 8px;     /* Внутрішні відступи (зверху/знизу та з боків) */
+  border-radius: 8px;       /* Закруглені кути */
+  border: none;             /* Прибираємо стандартну рамку */
+
+  /* Стилізація тексту */
+  font-family: Arial, sans-serif; /* Шрифт (можна змінити на свій) */
+  font-size: 14px;          /* Розмір шрифту */
+  font-weight: bold;        /* Жирний шрифт */
+  text-transform: uppercase;/* Весь текст великими літерами */
+  text-decoration: none;    /* Прибираємо підкреслення, якщо це посилання */
+
+  /* Інтерактивність */
+  cursor: pointer;          /* Вигляд курсора у вигляді руки */
+  transition: background-color 0.3s ease; /* Плавний перехід для анімації */
 
 
-  /* Текст кнопки */
-  color: #FFFFFF;        /* Колір тексту білий */
-  font-family: 'Montserrat', sans-serif; /* Шрифт, що використовується на сайті */
-  font-size: 5px;       /* Розмір шрифту */
-  font-weight: 600;      /* Жирність шрифту (Semi-Bold) */
-  text-transform: uppercase; /* Великі літери */
-  letter-spacing: 0.8px; /* Легке розширення між літерами */
-
-  /* Ефекти */
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4); /* М'яка тінь для об'єму */
-  transition: all 0.3s ease; /* Плавний перехід для анімацій */
+    display: flex;
+  align-items: center;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .btn:hover {
   transform: translateY(-2px); /* Піднімаємо кнопку трохи вгору */
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.6); /* Тінь стає більшою і виразнішою */
   opacity: 0.9; /* Легка прозорість для ефекту */
+   background-color: #0056b3; /* Робимо фон трохи темнішим */
 }
 
 /* Ефект при натисканні (Active Effect) */
 .btn:active {
   transform: translateY(0); /* Повертаємо кнопку в початкове положення */
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3); /* Тінь стає меншою, імітуючи натискання */
+}
+.icon {
+   /* display: flex; */
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    align-items: center;
+    flex-direction: row;
+    padding-left: 6px;
+    /* margin-top: auto; */
+    /* margin-bottom: 2px; */
+    /* margin-top: auto;
+    margin-bottom: auto; */
+    vertical-align: middle; 
 }
