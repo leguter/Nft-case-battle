@@ -73,6 +73,37 @@
   transform: translateY(0); /* Повертаємо кнопку в початкове положення */
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3); /* Тінь стає меншою, імітуючи натискання */
 }
+.btnLink {
+    margin-top: auto;
+    margin-right: 5px;
+    margin-bottom: auto;
+    width: 90px;
+ height: 50px;
+  background-color: #007bff; /* Яскраво-синій фон */
+  color: #ffffff;           /* Білий колір тексту */
+
+  /* Відступи та форма */
+     /* Внутрішні відступи (зверху/знизу та з боків) */
+  border-radius: 8px;       /* Закруглені кути */
+  border: none;             /* Прибираємо стандартну рамку */
+
+  /* Стилізація тексту */
+  font-family: Arial, sans-serif; /* Шрифт (можна змінити на свій) */
+  font-size: 14px;          /* Розмір шрифту */
+  font-weight: bold;        /* Жирний шрифт */
+  text-transform: uppercase;/* Весь текст великими літерами */
+  text-decoration: none;    /* Прибираємо підкреслення, якщо це посилання */
+
+  /* Інтерактивність */
+  cursor: pointer;          /* Вигляд курсора у вигляді руки */
+  transition: background-color 0.3s ease; /* Плавний перехід для анімації */
+
+
+    display: flex;
+  align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
 .icon {
    /* display: flex; */
     justify-content: center;
