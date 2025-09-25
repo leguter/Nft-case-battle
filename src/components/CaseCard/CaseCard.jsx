@@ -38,7 +38,10 @@ function CaseCard({ caseItem }) {
         <img src={imageUrl} alt={caseItem.name} className={css.caseCardImage} />
       </div>
       <h3 className={css.caseCardName}>{caseItem.name}</h3>
-      <p className={css.caseCardPrice}>{caseItem.price}</p>
+      <div className={css.wrapperPrice}>
+      <p className={css.caseCardPrice}>{caseItem.price}<span className={css.usd}><img className={css.ton} src="../../../public/ton-symbol.svg" width="16px" height="16px"></img></span></p>
+      <p className={css.caseCardPrice}>{caseItem.stars}⭐</p>
+      </div>
       <button className={css.caseCardButton}>Відкрити</button>
     </div>
   );
