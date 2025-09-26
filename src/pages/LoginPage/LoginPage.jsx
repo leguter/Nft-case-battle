@@ -14,7 +14,7 @@
 
 
 
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 
 const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 const TELEGRAM_BOT_USERNAME = 'Sanyajjj_bot'; // Важливо: ім'я вашого бота
