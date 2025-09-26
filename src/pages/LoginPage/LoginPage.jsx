@@ -14,7 +14,7 @@
 
 
 
-import  { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 const TELEGRAM_BOT_USERNAME = 'Sanyajjj_bot'; // Важливо: ім'я вашого бота
@@ -31,6 +31,9 @@ const LoginPage = () => {
           headers: {
             'Content-Type': 'application/json',
           },
+          // ВАЖЛИВЕ ВИПРАВЛЕННЯ: Ця опція змушує браузер відправляти cookie
+          // при запитах на інший домен. Без неї авторизація неможлива.
+          credentials: 'include', 
           body: JSON.stringify(user),
         });
 
