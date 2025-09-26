@@ -12,7 +12,7 @@
 //   );
 // };
 
-export default LoginPage;
+
 
 import  { useEffect } from 'react';
 
