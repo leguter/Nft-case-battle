@@ -15,10 +15,11 @@
 
 
 import  { useEffect } from 'react';
-
+import css from './LoginPage.module.css'
 const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 const TELEGRAM_BOT_USERNAME = '@Sanyajjj_bot'; // Переконайтесь, що ім'я бота правильне
-
+        const botUsername = 'Sanyajjj_bot';
+  const telegramLoginUrl = `https://t.me/${botUsername}`;
 const LoginPage = () => {
 
   useEffect(() => {
@@ -74,7 +75,14 @@ const LoginPage = () => {
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh', flexDirection: 'column' }}>
       <h1>Вхід на сайт</h1>
       <p>Натисніть кнопку нижче, щоб авторизуватися через Telegram.</p>
-      <div id="telegram-login-container" style={{ marginTop: '20px' }}></div>
+       <a 
+              href={telegramLoginUrl} 
+              className={css.btnLink}
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+       <button type="button" className={css.btn} >Увійти<img className={css.icon} src="../../../public/tgicon.svg" width="16px" height="16px"></img></button>
+       </a>
     </div>
   );
 };
