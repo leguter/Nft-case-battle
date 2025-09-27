@@ -92,7 +92,7 @@
 import  { useEffect } from 'react';
 // import css from './LoginPage.module.css'; // Видалено імпорт, оскільки файл CSS відсутній
 
-const BACKEND_URL = 'https://back-for-project.onrender.com';
+const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 // ВАЖЛИВО: Ім'я користувача бота БЕЗ символу '@'
 const TELEGRAM_BOT_USERNAME = 'Sanyajjj_bot'; 
 
