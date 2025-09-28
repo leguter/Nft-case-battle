@@ -3,35 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест логіну Telegram</title>
+    <title>Тест логіну Telegram (JS Callback)</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            font-family: sans-serif;
-            background-color: #222;
-            color: white;
-        }
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; font-family: sans-serif; background-color: #222; color: white; text-align: center; padding: 20px; }
     </style>
 </head>
 <body>
 
-    <h1>Тестова сторінка для віджета Telegram</h1>
-    <p>Якщо кнопка нижче працює, проблема у React. Якщо ні - проблема в налаштуваннях браузера або Telegram.</p>
+    <h1>Тест №2: Метод JavaScript Callback</h1>
+    <p>Якщо після успішного входу ви побачите спливаюче вікно (alert) з вашими даними, значить, цей метод працює, і ми можемо адаптувати під нього ваш React-код.</p>
+
+    <!-- Контейнер для віджета -->
+    <div id="telegram-widget-container"></div>
 
     <!-- 
-        Цей скрипт використовує найнадійніший метод перенаправлення.
-        Після успішного входу він має повернути вас на сторінку
-        /login з даними в URL.
+        Ця глобальна функція має бути викликана віджетом Telegram
+        після успішної авторизації.
+    -->
+    <script>
+        function onTelegramAuth(user) {
+            alert("УСПІХ! Telegram повернув дані.\n\n" + JSON.stringify(user, null, 2));
+        }
+    </script>
+    
+    <!-- 
+        Скрипт віджета, тепер з використанням data-onauth.
+        Ми видалили data-auth-url.
     -->
     <script async src="https://telegram.org/js/telegram-widget.js?22"
         data-telegram-login="Sanyajjj_bot"
         data-size="large"
-        data-auth-url="https://nft-case-battle.vercel.app/login"
+        data-onauth="onTelegramAuth(user)"
         data-request-access="write"></script>
 
 </body>
 </html>
+
