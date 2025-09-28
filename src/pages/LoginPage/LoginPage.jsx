@@ -173,112 +173,92 @@
 
 // export default LoginPage;
 
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
-const BACKEND_URL = 'https://back-for-project-1.onrender.com';
+const BACKEND_URL = 'https://back-for-project.onrender.com';
 const TELEGRAM_BOT_USERNAME = 'Sanyajjj_bot';
 
-const LoginPage = () => {
-  const [logs, setLogs] = useState([]);
+// URL, на який Telegram ПОВЕРНЕ користувача після входу.
+const REDIRECT_URL = 'https://nft-case-battle.vercel.app/login';
 
-  const addLog = (message) => {
-    console.log(message);
-    setLogs(prevLogs => [...prevLogs, message]);
-  };
+const LoginPage = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
-    addLog('--- Початок діагностики LoginPage ---');
+    // --- КРОК 2: Обробка повернення від Telegram ---
+    // Перевіряємо, чи є в URL параметри, які надіслав Telegram
+    const telegramUserData = Object.fromEntries(searchParams.entries());
+    
+    // Якщо є hash, значить, Telegram повернув нас сюди з даними
+    if (telegramUserData.hash && !isProcessing) {
+      setIsProcessing(true); // Запобігаємо повторній обробці
 
-    // КРОК 1: Перевіряємо, з якого домену ми працюємо
-    const currentOrigin = window.location.origin;
-    addLog(`[INFO] Поточний домен сайту (origin): ${currentOrigin}`);
-    addLog(`[INFO] Очікуваний домен в BotFather: nft-case-battle.vercel.app`);
-    if (currentOrigin !== 'https://nft-case-battle.vercel.app') {
-        addLog('[ПОПЕРЕДЖЕННЯ] Домен сайту не співпадає з очікуваним! Це може бути причиною проблеми.');
+      const handleTelegramCallback = async (user) => {
+        try {
+          const response = await fetch(`${BACKEND_URL}/api/auth/telegram`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(user),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem('accessToken', data.accessToken);
+            // Перенаправляємо на головну сторінку після успішного входу
+            navigate('/');
+          } else {
+            const errorData = await response.json();
+            setError(`Помилка авторизації від сервера: ${errorData.message}`);
+          }
+        } catch (err) {
+          console.error('Помилка відправки даних на бекенд:', err);
+          setError('Не вдалося зв\'язатися з сервером.');
+        }
+      };
+
+      handleTelegramCallback(telegramUserData);
+      return; // Зупиняємо виконання, щоб не показувати кнопку
     }
 
-    // КРОК 2: Визначаємо функцію для Telegram
-    window.onTelegramAuth = async (user) => {
-      addLog('[SUCCESS] Telegram викликав функцію onTelegramAuth! Проблема НЕ в домені.');
-      addLog('[DATA] Отримано дані користувача: ' + JSON.stringify(user, null, 2));
-      
-      try {
-        addLog('[FETCH] Відправка даних на бекенд...');
-        const response = await fetch(`${BACKEND_URL}/api/auth/telegram`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(user),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          localStorage.setItem('accessToken', data.accessToken);
-          addLog('[SUCCESS] Токен успішно збережено в localStorage.');
-          alert('Авторизація успішна!');
-          window.location.href = '/';
-        } else {
-          const errorData = await response.json();
-          addLog(`[ERROR] Помилка від бекенду: ${errorData.message}`);
-          alert(`Помилка авторизації: ${errorData.message}`);
-        }
-      } catch (error) {
-        addLog(`[FATAL ERROR] Помилка відправки даних на бекенд: ${error.message}`);
-        alert('Не вдалося зв\'язатися з сервером.');
-      }
-    };
-    addLog('[INFO] Глобальна функція window.onTelegramAuth успішно створена.');
-
-
-    // КРОК 3: Створюємо та додаємо скрипт віджета
-    addLog('[INFO] Створення скрипта для віджета Telegram...');
+    // --- КРОК 1: Відображення кнопки для входу ---
+    // Якщо параметрів немає, показуємо кнопку віджета
     const script = document.createElement('script');
     script.src = 'https://telegram.org/js/telegram-widget.js?22';
     script.async = true;
     script.setAttribute('data-telegram-login', TELEGRAM_BOT_USERNAME);
     script.setAttribute('data-size', 'large');
-    script.setAttribute('data-onauth', 'onTelegramAuth(user)');
+    // ВАЖЛИВО: Використовуємо data-auth-url для надійності
+    script.setAttribute('data-auth-url', REDIRECT_URL);
     script.setAttribute('data-request-access', 'write');
-
-    // Додаємо обробники для перевірки завантаження скрипта
-    script.onload = () => {
-        addLog('[SUCCESS] Скрипт віджета Telegram успішно завантажено.');
-    };
-    script.onerror = () => {
-        addLog('[FATAL ERROR] Не вдалося завантажити скрипт віджета Telegram! Перевірте блокувальники реклами або мережу.');
-    };
 
     const container = document.getElementById('telegram-login-container');
     if (container) {
-        container.innerHTML = ''; // Очищуємо контейнер на випадок повторного рендеру
+        // Очищуємо контейнер перед додаванням нового скрипта
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
         container.appendChild(script);
-        addLog('[INFO] Скрипт віджета додано на сторінку.');
-    } else {
-        addLog('[ERROR] Не знайдено контейнер #telegram-login-container.');
     }
 
-    return () => {
-      delete window.onTelegramAuth;
-      addLog('--- Компонент LoginPage демонтовано, очищено. ---');
-    };
-  }, []);
+  }, [searchParams, navigate, isProcessing]);
+
+  // Показуємо стан завантаження, поки обробляємо дані від Telegram
+  if (isProcessing) {
+    return <div style={{ textAlign: 'center', paddingTop: '50px' }}>Перевірка даних...</div>;
+  }
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="login-page" style={{ textAlign: 'center', paddingTop: '50px' }}>
       <h1>Вхід на сайт</h1>
       <p>Натисніть кнопку нижче, щоб авторизуватися через Telegram.</p>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <div id="telegram-login-container"></div>
-      
-      <div style={{ marginTop: '30px', background: '#222', padding: '15px', borderRadius: '8px', fontFamily: 'monospace', textAlign: 'left' }}>
-        <h3 style={{ borderBottom: '1px solid #444', paddingBottom: '10px', marginBottom: '10px' }}>Діагностичні логи:</h3>
-        {logs.map((log, index) => (
-          <div key={index} style={{ color: log.includes('SUCCESS') ? 'lightgreen' : log.includes('ERROR') ? 'red' : 'white', marginBottom: '5px' }}>
-            {log}
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
 
 export default LoginPage;
-
