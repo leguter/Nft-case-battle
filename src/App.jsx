@@ -12,6 +12,7 @@ import Loader from './components/Loader/Loader';
 
 import  { useState, useEffect } from 'react';
 import LoginModal from './components/LoginModal/LoginModal';
+import AuthCallbackPage from './pages/AuthCallbackPage/AuthCallbackPage';
 
 
 const BACKEND_URL = 'https://back-for-project-1.onrender.com';
@@ -74,10 +75,10 @@ const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 
 
 
+
 function App() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [showLoginModal, setShowLoginModal] = useState(false);
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -102,12 +103,6 @@ function App() {
     checkAuthStatus();
   }, []);
 
-  const handleLoginSuccess = (token, loggedInUser) => {
-    localStorage.setItem('accessToken', token);
-    setUser(loggedInUser);
-    setShowLoginModal(false);
-  };
-
   if (isLoading) {
     return <Loader />;
   }
@@ -115,18 +110,12 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        <Header user={user} onLoginClick={() => setShowLoginModal(true)} />
-        
-        {showLoginModal && (
-          <LoginModal
-            onClose={() => setShowLoginModal(false)} 
-            onLoginSuccess={handleLoginSuccess}
-          />
-        )}
-        
+        <Header user={user} />
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            {/* Додаємо новий маршрут для обробки відповіді від Telegram */}
+            <Route path="/auth/telegram/callback" element={<AuthCallbackPage />} />
             <Route 
               path="/case/:caseId" 
               element={<CasePage user={user} setUser={setUser} />} 
@@ -139,5 +128,4 @@ function App() {
 }
 
 export default App;
-
 
