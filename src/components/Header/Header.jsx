@@ -1,6 +1,6 @@
 
-import css from "./Header.module.css";
-import Logo from "../Logo/Logo"
+// import css from "./Header.module.css";
+// import Logo from "../Logo/Logo"
 // URL вашого бекенду. Винесіть його в константу для зручності.
 const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 // Замініть на ім'я вашого бота
@@ -109,58 +109,41 @@ const RETURN_URL = `${YOUR_SITE_ORIGIN}/auth/telegram/callback`;
 
 // export default Header;
 
-const Header = ({ user, onLoginClick }) => {
+// Header.jsx
+import { useState } from "react";
+import LoginModal from "../LoginModal/LoginModal";
+
+const Header = ({ user, setUser }) => {
+  const [showLogin, setShowLogin] = useState(false);
+
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
-    window.location.reload();
+    setUser(null);
   };
 
   return (
-    <header className={css.container}>
-      <Logo />
-      <Link to="/" className={css.name}>NFT CASE BATTLE</Link>
-      <div className={css.userInfoContainer}>
+    <header className="header-container">
+      <h1>NFT CASE BATTLE</h1>
+      <div className="user-info">
         {user ? (
           <>
-            <div>
-              <p>{user.firstName || user.username}</p>
-              <p className={css.balance}>{user.balance} 💎</p>
-            </div>
-            <img
-              src={
-                user.photoUrl ||
-                `https://placehold.co/48x48/777/FFF?text=${user.firstName?.[0] || "U"}`
-              }
-              alt="Avatar"
-              className={css.avatar}
-            />
-            <button onClick={handleLogout} className={css.logoutButton}>
-              Вийти
-            </button>
+            <p>{user.firstName || user.username}</p>
+            <p>{user.balance} 💎</p>
+            <img src={user.photoUrl || "https://placehold.co/48x48/777/FFF?text=U"} alt="Avatar" />
+            <button onClick={handleLogout}>Вийти</button>
           </>
         ) : (
-          <button
-            type="button"
-            onClick={onLoginClick} // 👉 викликаємо відкриття LoginModal
-            className={css.btn}
-          >
-            Увійти
-            <img
-              className={css.icon}
-              src="/tgicon.svg"
-              width="16px"
-              height="16px"
-              alt="Telegram Icon"
-            />
-          </button>
+          <button onClick={() => setShowLogin(true)}>Увійти через Telegram</button>
         )}
       </div>
+
+      {showLogin && <LoginModal setUser={setUser} onClose={() => setShowLogin(false)} />}
     </header>
   );
 };
 
 export default Header;
+
 
 
 
