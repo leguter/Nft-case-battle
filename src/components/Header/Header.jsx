@@ -98,7 +98,7 @@ const Header = ({ user }) => {
           <a href={telegramLoginUrl} className={css.btnLink}>
             <button type="button" className={css.btn}>
               Увійти
-              <img className={css.icon} src="/tgicon.svg" width="16px" height="16px" alt="Telegram Icon"/>
+\ <img className={css.icon} src="/tgicon.svg" width="16px" height="16px" alt="Telegram Icon"/>
             </button>
           </a>
         )}
