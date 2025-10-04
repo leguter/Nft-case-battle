@@ -60,7 +60,6 @@
 // export default LoginModal;
 
 
-
 import { useEffect } from "react";
 
 export default function LoginModal({ onClose, BACKEND_URL }) {
@@ -68,14 +67,11 @@ export default function LoginModal({ onClose, BACKEND_URL }) {
     const script = document.createElement("script");
     script.src = "https://telegram.org/js/telegram-widget.js?22";
     script.async = true;
-    script.setAttribute("data-telegram-login", "Sanyajjj_bot"); // замінити на бота
+    script.setAttribute("data-telegram-login", "Sanyajjj_bot"); 
     script.setAttribute("data-size", "large");
     script.setAttribute("data-userpic", "false");
     script.setAttribute("data-request-access", "write");
-    script.setAttribute(
-      "data-auth-url",
-      `${BACKEND_URL}/api/auth/telegram`
-    );
+    script.setAttribute("data-auth-url", `${BACKEND_URL}/api/auth/telegram`);
 
     document.getElementById("telegram-login").appendChild(script);
 
@@ -86,11 +82,10 @@ export default function LoginModal({ onClose, BACKEND_URL }) {
 
   return (
     <div className="login-modal">
-      <button className="close-btn" onClick={onClose}>
-        ✖
-      </button>
+      <button className="close-btn" onClick={onClose}>✖</button>
       <div id="telegram-login"></div>
     </div>
   );
 }
+
 
