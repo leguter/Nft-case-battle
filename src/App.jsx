@@ -294,15 +294,15 @@ function App() {
         </main>
 
         {/* Модалка логіну */}
-        {showLogin && (
-          <LoginModal
-            onLogin={(newUser) => {
-              setUser(newUser);
-              setShowLogin(false);
-            }}
-            onClose={() => setShowLogin(false)}
-          />
-        )}
+      {showLogin && (
+  <LoginModal
+    onLogin={(newUser) => {
+      setUser(newUser);
+      setShowLogin(false);
+    }}
+    onClose={() => setShowLogin(false)}
+  />
+)}
       </div>
     </Router>
   );

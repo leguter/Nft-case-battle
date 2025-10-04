@@ -94,17 +94,15 @@ import { useState } from "react";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001";
 
-export default function LoginModal({ onLogin }) {
+export default function LoginModal({ onLogin, onClose }) {
   const [loading, setLoading] = useState(false);
 
-  // --- Основна логіка логіну ---
   const handleTelegramLogin = () => {
     setLoading(true);
 
-    // 1. Викликаємо Telegram віджет
     window.Telegram.Login.auth(
       {
-        bot_id: import.meta.env.VITE_TELEGRAM_BOT_ID, // твій bot_id з .env
+        bot_id: import.meta.env.VITE_TELEGRAM_BOT_ID, // ⚡️ ID твого бота з .env
         request_access: "write",
       },
       async function (user) {
@@ -117,7 +115,6 @@ export default function LoginModal({ onLogin }) {
         console.log("[DEBUG] Telegram user:", user);
 
         try {
-          // 2. Відправляємо userData на бекенд
           const response = await fetch(`${BACKEND_URL}/api/auth/telegram`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -134,13 +131,12 @@ export default function LoginModal({ onLogin }) {
           const data = await response.json();
           console.log("[DEBUG] Backend response:", data);
 
-          // 3. Зберігаємо токен
           localStorage.setItem("accessToken", data.accessToken);
           localStorage.setItem("user", JSON.stringify(data.user));
 
-          // 4. Передаємо наверх
           if (onLogin) onLogin(data.user);
 
+          if (onClose) onClose(); // 👉 закриваємо модалку після успішного логіну
         } catch (error) {
           console.error("❌ Network error:", error);
         } finally {
@@ -151,17 +147,23 @@ export default function LoginModal({ onLogin }) {
   };
 
   return (
-    <div className="p-4 flex flex-col items-center">
-      <h2 className="text-lg font-bold mb-3">Увійти через Telegram</h2>
-      <button
-        className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg shadow"
-        onClick={handleTelegramLogin}
-        disabled={loading}
-      >
-        {loading ? "Завантаження..." : "Увійти"}
-      </button>
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="bg-white p-6 rounded-xl shadow-lg w-80 text-center">
+        <h2 className="text-lg font-bold mb-3">Увійти через Telegram</h2>
+        <button
+          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg shadow w-full"
+          onClick={handleTelegramLogin}
+          disabled={loading}
+        >
+          {loading ? "Завантаження..." : "Увійти"}
+        </button>
+        <button
+          className="mt-3 text-sm text-gray-500 hover:underline"
+          onClick={onClose}
+        >
+          Скасувати
+        </button>
+      </div>
     </div>
   );
 }
-
-
