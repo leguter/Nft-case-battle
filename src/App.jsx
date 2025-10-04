@@ -76,9 +76,65 @@ const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 
 
 
+// function App() {
+//   const [user, setUser] = useState(null);
+//   const [isLoading, setIsLoading] = useState(true);
+
+//   useEffect(() => {
+//     const checkAuthStatus = async () => {
+//       const token = localStorage.getItem('accessToken');
+//       if (token) {
+//         try {
+//           const response = await fetch(`${BACKEND_URL}/api/profile`, {
+//             headers: { 'Authorization': `Bearer ${token}` }
+//           });
+//           if (response.ok) {
+//             const data = await response.json();
+//             setUser(data.user);
+//           } else {
+//             localStorage.removeItem('accessToken');
+//           }
+//         } catch (error) {
+//           console.error('Помилка перевірки токену:', error);
+//         }
+//       }
+//       setIsLoading(false);
+//     };
+//     checkAuthStatus();
+//   }, []);
+
+//   if (isLoading) {
+//     return <Loader />;
+//   }
+
+//   return (
+//     <Router>
+//       <div className="app-container">
+//         <Header user={user} />
+//         <main>
+//           <Routes>
+//             <Route path="/" element={<HomePage />} />
+//             {/* Додаємо новий маршрут для обробки відповіді від Telegram */}
+//             <Route path="/auth/telegram/callback" element={<AuthCallbackPage />} />
+//             <Route 
+//               path="/case/:caseId" 
+//               element={<CasePage user={user} setUser={setUser} />} 
+//             />
+//           </Routes>
+//         </main>
+//       </div>
+//     </Router>
+//   );
+// }
+
+// export default App;
+
+
+
 function App() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -93,9 +149,11 @@ function App() {
             setUser(data.user);
           } else {
             localStorage.removeItem('accessToken');
+            setUser(null);
           }
         } catch (error) {
           console.error('Помилка перевірки токену:', error);
+          setUser(null);
         }
       }
       setIsLoading(false);
@@ -103,29 +161,35 @@ function App() {
     checkAuthStatus();
   }, []);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  if (isLoading) return <Loader />;
 
   return (
     <Router>
       <div className="app-container">
-        <Header user={user} />
+        <Header user={user} onLoginClick={() => setShowLogin(true)} />
         <main>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            {/* Додаємо новий маршрут для обробки відповіді від Telegram */}
-            <Route path="/auth/telegram/callback" element={<AuthCallbackPage />} />
-            <Route 
-              path="/case/:caseId" 
-              element={<CasePage user={user} setUser={setUser} />} 
+            {/* Головна сторінка */}
+            <Route path="/" element={<HomePage user={user} />} />
+
+            {/* Telegram OAuth callback */}
+            <Route path="/login-success" element={<AuthCallbackPage setUser={setUser} />} />
+
+            {/* Сторінка з кейсом */}
+            <Route
+              path="/case/:caseId"
+              element={<CasePage user={user} setUser={setUser} />}
             />
           </Routes>
         </main>
+
+        {/* Модальне вікно авторизації через Telegram */}
+        {showLogin && (
+          <LoginModal onClose={() => setShowLogin(false)} BACKEND_URL={BACKEND_URL} />
+        )}
       </div>
     </Router>
   );
 }
 
 export default App;
-
