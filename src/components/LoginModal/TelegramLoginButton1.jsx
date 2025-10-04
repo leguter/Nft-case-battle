@@ -1,17 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const TelegramLoginButton = () => {
+  const containerRef = useRef(null);
+
   useEffect(() => {
-    const container = document.getElementById("telegram-button-container");
+    const container = containerRef.current;
     if (!container) return;
 
-    // очищення контейнера — на випадок повторного монтування
+    // очищуємо контейнер (на випадок повторного монтування)
     container.innerHTML = "";
 
+    // створюємо віджет Telegram
     const script = document.createElement("script");
     script.src = "https://telegram.org/js/telegram-widget.js?22";
     script.async = true;
-    script.setAttribute("data-telegram-login", "Sanyajjj_bot");
+    script.setAttribute("data-telegram-login", "Sanyajjj_bot"); // 👈 заміни на свого бота
     script.setAttribute(
       "data-auth-url",
       "https://nft-case-battle.vercel.app/auth/telegram/callback"
@@ -20,19 +23,23 @@ const TelegramLoginButton = () => {
     script.setAttribute("data-radius", "8");
     script.setAttribute("data-request-access", "write");
 
-    // невелика затримка, щоб React встиг змонтувати DOM
+    // додаємо скрипт лише після того, як DOM точно змонтувався
     setTimeout(() => {
       container.appendChild(script);
-    }, 100);
+    }, 50);
   }, []);
 
   return (
     <div
-      id="telegram-button-container"
-      style={{ display: "flex", justifyContent: "center" }}
+      ref={containerRef}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "50px",
+      }}
     />
   );
 };
 
 export default TelegramLoginButton;
-

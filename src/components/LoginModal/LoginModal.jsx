@@ -60,6 +60,7 @@ import TelegramLoginButton from "./TelegramLoginButton1";
 // export default LoginModal;
 
 
+
 function LoginModal({ onClose }) {
   return (
     <div
@@ -107,7 +108,6 @@ function LoginModal({ onClose }) {
           Увійти через Telegram
         </h2>
 
-        {/* Контейнер для кнопки Telegram */}
         <TelegramLoginButton />
       </div>
     </div>
