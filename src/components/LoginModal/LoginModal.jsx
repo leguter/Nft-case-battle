@@ -1,6 +1,6 @@
 // import  { useEffect } from 'react';
 
-import TelegramLoginButton from "./TelegramLoginButton1";
+// import TelegramLoginButton from "./TelegramLoginButton1";
 
 // const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 // const TELEGRAM_BOT_USERNAME = 'Sanyajjj_bot';
@@ -61,57 +61,36 @@ import TelegramLoginButton from "./TelegramLoginButton1";
 
 
 
-function LoginModal({ onClose }) {
+import { useEffect } from "react";
+
+export default function LoginModal({ onClose, BACKEND_URL }) {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://telegram.org/js/telegram-widget.js?22";
+    script.async = true;
+    script.setAttribute("data-telegram-login", "Sanyajjj_bot"); // замінити на бота
+    script.setAttribute("data-size", "large");
+    script.setAttribute("data-userpic", "false");
+    script.setAttribute("data-request-access", "write");
+    script.setAttribute(
+      "data-auth-url",
+      `${BACKEND_URL}/api/auth/telegram`
+    );
+
+    document.getElementById("telegram-login").appendChild(script);
+
+    return () => {
+      document.getElementById("telegram-login").innerHTML = "";
+    };
+  }, []);
+
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: "rgba(0,0,0,0.7)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 1000,
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "#1e293b",
-          padding: "40px 30px",
-          borderRadius: "16px",
-          position: "relative",
-          color: "white",
-          textAlign: "center",
-          width: "320px",
-        }}
-      >
-        <button
-          onClick={onClose}
-          style={{
-            position: "absolute",
-            top: "10px",
-            right: "15px",
-            background: "none",
-            border: "none",
-            color: "white",
-            fontSize: "1.5rem",
-            cursor: "pointer",
-          }}
-        >
-          &times;
-        </button>
-
-        <h2 style={{ marginBottom: "20px", fontSize: "1.3rem" }}>
-          Увійти через Telegram
-        </h2>
-
-        <TelegramLoginButton />
-      </div>
+    <div className="login-modal">
+      <button className="close-btn" onClick={onClose}>
+        ✖
+      </button>
+      <div id="telegram-login"></div>
     </div>
   );
 }
 
-export default LoginModal;

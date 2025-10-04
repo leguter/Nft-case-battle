@@ -52,58 +52,34 @@
 
 // export default AuthCallbackPage;
 
-import { useEffect, useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const BACKEND_URL = 'https://back-for-project-1.onrender.com';
-
-const AuthCallbackPage = () => {
-  const [searchParams] = useSearchParams();
+export default function AuthCallbackPage({ setUser }) {
   const navigate = useNavigate();
-  const [status, setStatus] = useState('Обробка даних...');
-
-  // Витягуємо дані з query string (від Telegram)
-  const telegramUserData = Object.fromEntries(searchParams.entries());
-
-  const sendAuthRequest = async (userData) => {
-    try {
-      const response = await fetch(`${BACKEND_URL}/api/auth/telegram`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Помилка авторизації');
-      }
-
-      const data = await response.json();
-      if (data.accessToken) {
-        localStorage.setItem('accessToken', data.accessToken);
-        navigate('/');
-      } else {
-        throw new Error('Сервер не повернув токен.');
-      }
-    } catch (err) {
-      setStatus(err.message || 'Не вдалося звʼязатися з сервером.');
-    }
-  };
 
   useEffect(() => {
-    if (telegramUserData.hash) {
-      sendAuthRequest(telegramUserData);
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
+    if (token) {
+      localStorage.setItem("accessToken", token);
+
+      fetch("https://back-for-project-1.onrender.com/api/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUser(data.user);
+          navigate("/", { replace: true }); // Перехід на головну після логіну
+        })
+        .catch(() => {
+          localStorage.removeItem("accessToken");
+        });
     } else {
-      setStatus('Не знайдено дані для авторизації. Спробуйте увійти знову.');
+      navigate("/", { replace: true });
     }
-  }, []); // виконується тільки один раз при завантаженні
+  }, []);
 
-  return (
-    <div style={{ textAlign: 'center', paddingTop: '50px', color: 'white' }}>
-      <h1>{status}</h1>
-    </div>
-  );
-};
-
-export default AuthCallbackPage;
-
+  return <div>Logging in...</div>;
+}

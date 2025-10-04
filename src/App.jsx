@@ -136,31 +136,49 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [showLogin, setShowLogin] = useState(false);
 
-  useEffect(() => {
-    const checkAuthStatus = async () => {
-      const token = localStorage.getItem('accessToken');
-      if (token) {
-        try {
-          const response = await fetch(`${BACKEND_URL}/api/profile`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-          });
-          if (response.ok) {
-            const data = await response.json();
-            setUser(data.user);
-          } else {
-            localStorage.removeItem('accessToken');
-            setUser(null);
-          }
-        } catch (error) {
-          console.error('Помилка перевірки токену:', error);
+useEffect(() => {
+  const checkAuthStatus = async () => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/profile`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data.user);
+        } else {
+          localStorage.removeItem('accessToken');
           setUser(null);
         }
+      } catch (error) {
+        console.error('Помилка перевірки токену:', error);
+        setUser(null);
       }
-      setIsLoading(false);
-    };
-    checkAuthStatus();
-  }, []);
+    }
 
+    // --- Тут вставляємо код для Telegram Mini App ---
+    if (window.Telegram?.WebApp) {
+      const tgUser = window.Telegram.WebApp.initDataUnsafe?.user;
+      if (tgUser && !user) {
+        fetch(`${BACKEND_URL}/api/auth/telegram-mini`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(tgUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("accessToken", data.accessToken);
+            setUser(data.user);
+          });
+      }
+    }
+
+    setIsLoading(false);
+  };
+
+  checkAuthStatus();
+}, []);
   if (isLoading) return <Loader />;
 
   return (
