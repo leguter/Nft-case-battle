@@ -95,12 +95,12 @@ const Header = ({ user }) => {
           </>
         ) : (
           // Тепер це звичайне посилання, яке веде на сайт Telegram
-          <a href={telegramLoginUrl} className={css.btnLink}>
+//  <a href={telegramLoginUrl} className={css.btnLink}>
             <button type="button" className={css.btn}>
               Увійти
-\ <img className={css.icon} src="/tgicon.svg" width="16px" height="16px" alt="Telegram Icon"/>
+ <img className={css.icon} src="/tgicon.svg" width="16px" height="16px" alt="Telegram Icon"/>
             </button>
-          </a>
+            /* </a> */
         )}
       </div>
     </header>
