@@ -59,12 +59,59 @@ import TelegramLoginButton from "./TelegramLoginButton1";
 
 // export default LoginModal;
 
-function LoginModal() {
+
+function LoginModal({ onClose }) {
   return (
-    <div className="login-modal">
-      <h2>Увійти через Telegram</h2>
-      <TelegramLoginButton />
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(0,0,0,0.7)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 1000,
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "#1e293b",
+          padding: "40px 30px",
+          borderRadius: "16px",
+          position: "relative",
+          color: "white",
+          textAlign: "center",
+          width: "320px",
+        }}
+      >
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "15px",
+            background: "none",
+            border: "none",
+            color: "white",
+            fontSize: "1.5rem",
+            cursor: "pointer",
+          }}
+        >
+          &times;
+        </button>
+
+        <h2 style={{ marginBottom: "20px", fontSize: "1.3rem" }}>
+          Увійти через Telegram
+        </h2>
+
+        {/* Контейнер для кнопки Telegram */}
+        <TelegramLoginButton />
+      </div>
     </div>
   );
 }
+
 export default LoginModal;
