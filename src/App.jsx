@@ -138,47 +138,53 @@ function App() {
 
 useEffect(() => {
   const checkAuthStatus = async () => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      try {
+    try {
+      const token = localStorage.getItem('accessToken');
+
+      // --- 1. Перевіряємо JWT ---
+      if (token) {
         const response = await fetch(`${BACKEND_URL}/api/profile`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` }
         });
+
         if (response.ok) {
           const data = await response.json();
           setUser(data.user);
+          return; // ✅ якщо вже є токен, далі не йдемо
         } else {
           localStorage.removeItem('accessToken');
           setUser(null);
         }
-      } catch (error) {
-        console.error('Помилка перевірки токену:', error);
-        setUser(null);
       }
-    }
 
-    // --- Тут вставляємо код для Telegram Mini App ---
-    if (window.Telegram?.WebApp) {
-      const tgUser = window.Telegram.WebApp.initDataUnsafe?.user;
-      if (tgUser && !user) {
-        fetch(`${BACKEND_URL}/api/auth/telegram-mini`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(tgUser),
-        })
-          .then((res) => res.json())
-          .then((data) => {
+      // --- 2. Telegram Mini App ---
+      if (window.Telegram?.WebApp) {
+        const tgUser = window.Telegram.WebApp.initDataUnsafe?.user;
+        if (tgUser) {
+          const res = await fetch(`${BACKEND_URL}/api/auth/telegram`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(tgUser),
+          });
+
+          if (res.ok) {
+            const data = await res.json();
             localStorage.setItem("accessToken", data.accessToken);
             setUser(data.user);
-          });
+          }
+        }
       }
+    } catch (error) {
+      console.error("Помилка перевірки токену:", error);
+      setUser(null);
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   checkAuthStatus();
 }, []);
+
   if (isLoading) return <Loader />;
 
   return (
@@ -203,7 +209,7 @@ useEffect(() => {
 
         {/* Модальне вікно авторизації через Telegram */}
         {showLogin && (
-          <LoginModal onClose={() => setShowLogin(false)} BACKEND_URL={BACKEND_URL} />
+          <LoginModal onLogin={(user) => setUser(user)} />
         )}
       </div>
     </Router>
