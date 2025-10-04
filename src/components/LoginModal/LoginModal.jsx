@@ -90,75 +90,51 @@
 
 
 // src/components/LoginModal.jsx
-import { useState } from "react";
+import { useEffect } from "react";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001";
 
 export default function LoginModal({ onLogin, onClose }) {
-  const [loading, setLoading] = useState(false);
 
-  const handleTelegramLogin = () => {
-    setLoading(true);
+  useEffect(() => {
+    const handleAuth = async (event) => {
+      const user = event.detail;
+      console.log("[DEBUG] Telegram user:", user);
 
-    window.Telegram.Login.auth(
-      {
-        bot_id: import.meta.env.VITE_TELEGRAM_BOT_ID, // ⚡️ ID твого бота з .env
-        request_access: "write",
-      },
-      async function (user) {
-        if (!user) {
-          console.error("❌ Telegram auth failed");
-          setLoading(false);
-          return;
-        }
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/auth/telegram`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(user),
+        });
 
-        console.log("[DEBUG] Telegram user:", user);
+        const data = await response.json();
 
-        try {
-          const response = await fetch(`${BACKEND_URL}/api/auth/telegram`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(user),
-          });
-
-          if (!response.ok) {
-            const err = await response.json();
-            console.error("❌ Backend error:", err);
-            setLoading(false);
-            return;
-          }
-
-          const data = await response.json();
-          console.log("[DEBUG] Backend response:", data);
-
+        if (response.ok) {
           localStorage.setItem("accessToken", data.accessToken);
           localStorage.setItem("user", JSON.stringify(data.user));
-
           if (onLogin) onLogin(data.user);
-
-          if (onClose) onClose(); // 👉 закриваємо модалку після успішного логіну
-        } catch (error) {
-          console.error("❌ Network error:", error);
-        } finally {
-          setLoading(false);
+          if (onClose) onClose();
+        } else {
+          console.error("❌ Auth failed:", data);
         }
+      } catch (err) {
+        console.error("❌ Network error:", err);
       }
-    );
-  };
+    };
+
+    window.addEventListener("telegram-auth", handleAuth);
+    return () => window.removeEventListener("telegram-auth", handleAuth);
+  }, [onLogin, onClose]);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="bg-white p-6 rounded-xl shadow-lg w-80 text-center">
         <h2 className="text-lg font-bold mb-3">Увійти через Telegram</h2>
+        {/* Сам віджет підхоплюється з index.html */}
+        <div id="telegram-login-widget" />
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg shadow w-full"
-          onClick={handleTelegramLogin}
-          disabled={loading}
-        >
-          {loading ? "Завантаження..." : "Увійти"}
-        </button>
-        <button
-          className="mt-3 text-sm text-gray-500 hover:underline"
+          className="mt-4 text-sm text-gray-500 hover:underline"
           onClick={onClose}
         >
           Скасувати
