@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 
 // Це може бути ваш хук або функція для роботи з авторизацією
 // import { useAuth } from '../context/AuthContext'; 

@@ -1,5 +1,7 @@
 // import  { useEffect } from 'react';
 
+import TelegramLoginButton from "./TelegramLoginButton1";
+
 // const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 // const TELEGRAM_BOT_USERNAME = 'Sanyajjj_bot';
 
@@ -57,21 +59,11 @@
 
 // export default LoginModal;
 
-function LoginModal({ onClose, BACKEND_URL }) {
+function LoginModal() {
   return (
     <div className="login-modal">
       <h2>Увійти через Telegram</h2>
-      <script
-        async
-        src="https://telegram.org/js/telegram-widget.js?7"
-        data-telegram-login="Sanyajjj_bot"  // 👈 заміни на ім’я свого бота
-        data-size="large"
-        data-userpic="false"
-        data-request-access="write"
-        data-auth-url={`${BACKEND_URL}/api/auth/telegram`}
-      ></script>
-
-      <button onClick={onClose}>Закрити</button>
+      <TelegramLoginButton />
     </div>
   );
 }
