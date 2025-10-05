@@ -1,10 +1,10 @@
 
-// import css from "./Header.module.css";
-// import Logo from "../Logo/Logo"
+import css from "./Header.module.css";
+import Logo from "../Logo/Logo"
 // URL вашого бекенду. Винесіть його в константу для зручності.
 const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 // Замініть на ім'я вашого бота
-const TELEGRAM_BOT_USERNAME = '@Sanyajjj_bot'; 
+const TELEGRAM_BOT_USERNAME = 'Sanyajjj_bot'; 
 
 
 
@@ -66,83 +66,86 @@ const YOUR_SITE_ORIGIN = 'https://nft-case-battle.vercel.app';
 const RETURN_URL = `${YOUR_SITE_ORIGIN}/auth/telegram/callback`;
 
 // Повне посилання для авторизації, яке ми будемо використовувати
-// const telegramLoginUrl = `https://oauth.telegram.org/auth?bot_id=${TELEGRAM_BOT_ID}&origin=${encodeURIComponent(YOUR_SITE_ORIGIN)}&return_to=${encodeURIComponent(RETURN_URL)}`;
+const telegramLoginUrl = `https://oauth.telegram.org/auth?bot_id=${TELEGRAM_BOT_ID}&origin=${encodeURIComponent(YOUR_SITE_ORIGIN)}&return_to=${encodeURIComponent(RETURN_URL)}`;
+// const telegramLoginUrl1 = 'https://oauth.telegram.org/auth?bot_id=YOUR_BOT_ID&scope=YOUR_SCOPE&public_key=YOUR_PUBLIC_KEY&nonce=YOUR_NONCE'
 
+const Header = ({ user }) => {
 
-// const Header = ({ user }) => {
-//   const handleLogout = () => {
-//     localStorage.removeItem('accessToken');
-//     window.location.reload();
-//   };
-
-//   return (
-//     <header className={css.container}>
-//        <Logo />
-//       <Link to="/" className={css.name}>NFT CASE BATTLE</Link>
-//       <div className={css.userInfoContainer}> 
-//         {user ? (
-//           <>
-//             <div>
-//               <p>{user.firstName || user.username}</p>
-//               <p className={css.balance}>{user.balance} 💎</p>
-//             </div>
-//             <img 
-//               src={user.photoUrl || `https://placehold.co/48x48/777/FFF?text=${user.firstName?.[0] || 'U'}`} 
-//               alt="Avatar" 
-//               className={css.avatar}
-//             />
-//             <button onClick={handleLogout} className={css.logoutButton}>Вийти</button>
-//           </>
-//         ) : (
-//           // Тепер це звичайне посилання, яке веде на сайт Telegram
-// //  <a href={telegramLoginUrl} className={css.btnLink}>
-//             <button type="button" className={css.btn}>
-//               Увійти
-//  <img className={css.icon} src="/tgicon.svg" width="16px" height="16px" alt="Telegram Icon"/>
-//             </button>
-//             /* </a> */
-//         )}
-//       </div>
-//     </header>
-//   );
-// };
-
-// export default Header;
-
-// Header.jsx
-import { useState } from "react";
-import LoginModal from "../LoginModal/LoginModal";
-
-const Header = ({ user, setUser }) => {
-  const [showLogin, setShowLogin] = useState(false);
-
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    setUser(null);
-  };
-
-  return (
-    <header className="header-container">
-      <h1>NFT CASE BATTLE</h1>
-      <div className="user-info">
-        {user ? (
-          <>
-            <p>{user.firstName || user.username}</p>
-            <p>{user.balance} 💎</p>
-            <img src={user.photoUrl || "https://placehold.co/48x48/777/FFF?text=U"} alt="Avatar" />
-            <button onClick={handleLogout}>Вийти</button>
-          </>
-        ) : (
-          <button onClick={() => setShowLogin(true)}>Увійти через Telegram</button>
-        )}
-      </div>
-
-      {showLogin && <LoginModal setUser={setUser} onClose={() => setShowLogin(false)} />}
-    </header>
-  );
+  
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    window.location.reload();
+  };
+  
+  return (
+    <header className={css.container}>
+       <Logo />
+      <Link to="/" className={css.name}>NFT CASE BATTLE</Link>
+      <div className={css.userInfoContainer}> 
+        {user ? (
+          <>
+            <div>
+              <p>{user.firstName || user.username}</p>
+              <p className={css.balance}>{user.balance} 💎</p>
+            </div>
+            <img 
+              src={user.photoUrl || `https://placehold.co/48x48/777/FFF?text=${user.firstName?.[0] || 'U'}`} 
+              alt="Avatar" 
+              className={css.avatar}
+            />
+            <button onClick={handleLogout} className={css.logoutButton}>Вийти</button>
+          </>
+        ) : (
+          // Тепер це звичайне посилання, яке веде на сайт Telegram
+          
+ <a href={telegramLoginUrl} className={css.btnLink}>
+            <button type="button" className={css.btn}>
+              Увійти
+ <img className={css.icon} src="/tgicon.svg" width="16px" height="16px" alt="Telegram Icon"/>
+            </button>
+             </a> 
+        )}
+      </div>
+    </header>
+  );
 };
 
 export default Header;
+
+// Header.jsx
+// import { useState } from "react";
+// import LoginModal from "../LoginModal/LoginModal";
+
+// const Header = ({ user, setUser }) => {
+//   const [showLogin, setShowLogin] = useState(false);
+
+//   const handleLogout = () => {
+//     localStorage.removeItem("accessToken");
+//     setUser(null);
+//   };
+
+//   return (
+//     <header className="header-container">
+//       <h1>NFT CASE BATTLE</h1>
+//       <div className="user-info">
+//         {user ? (
+//           <>
+//             <p>{user.firstName || user.username}</p>
+//             <p>{user.balance} 💎</p>
+//             <img src={user.photoUrl || "https://placehold.co/48x48/777/FFF?text=U"} alt="Avatar" />
+//             <button onClick={handleLogout}>Вийти</button>
+//           </>
+//         ) : (
+//           <button onClick={() => setShowLogin(true)}>Увійти через Telegram</button>
+//         )}
+//       </div>
+
+//       {showLogin && <LoginModal setUser={setUser} onClose={() => setShowLogin(false)} />}
+//     </header>
+//   );
+// };
+
+// export default Header;
 
 
 
