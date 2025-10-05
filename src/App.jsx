@@ -310,40 +310,43 @@ const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 
 // export default App;
 
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// Переконайтесь, що шляхи до ваших компонентів правильні
+import Header from './components/Header';
+import HomePage from './pages/HomePage';
+import CasePage from './pages/CasePage';
+import Loader from './components/Loader';
+import './App.css';
+
+const BACKEND_URL = 'https://back-for-project.onrender.com';
+
+// Спеціальний хук для зручної роботи з Telegram Web App
 const useTelegram = () => {
     const [tg, setTg] = useState(null);
 
     useEffect(() => {
-        // Перевіряємо, чи є об'єкт Telegram.WebApp
-        if (window.Telegram && window.Telegram.WebApp) {
-            const webApp = window.Telegram.WebApp;
-            webApp.ready(); // Повідомляємо Telegram, що додаток готовий
-            webApp.expand(); // Розширюємо вікно на весь екран
-            setTg(webApp);
-        } else {
-            // Якщо скрипт ще не завантажився, додаємо його
-            const script = document.createElement('script');
-            script.src = 'https://telegram.org/js/telegram-web-app.js';
-            script.async = true;
-            script.onload = () => {
-                if (window.Telegram && window.Telegram.WebApp) {
-                    const webApp = window.Telegram.WebApp;
-                    webApp.ready();
-                    webApp.expand();
-                    setTg(webApp);
-                }
-            };
-            document.body.appendChild(script);
-            
-            return () => {
-                document.body.removeChild(script);
-            };
-        }
+        const script = document.createElement('script');
+        script.src = 'https://telegram.org/js/telegram-web-app.js';
+        script.async = true;
+        script.onload = () => {
+            if (window.Telegram && window.Telegram.WebApp) {
+                const webApp = window.Telegram.WebApp;
+                webApp.ready(); // Повідомляємо Telegram, що додаток готовий
+                webApp.expand(); // Розширюємо вікно на весь екран
+                setTg(webApp);
+            }
+        };
+        document.body.appendChild(script);
+        
+        return () => {
+            document.body.removeChild(script);
+        };
     }, []);
 
     return tg;
 };
-
 
 function App() {
   const tg = useTelegram();
@@ -352,9 +355,8 @@ function App() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Якщо об'єкт tg ще не готовий, нічого не робимо
     if (!tg) {
-      // Встановлюємо таймер на випадок, якщо додаток відкрито не в Telegram
+      // Чекаємо, поки об'єкт tg буде ініціалізовано, або показуємо помилку
       const timer = setTimeout(() => {
         if (!window.Telegram?.WebApp?.initData) {
             setError('Цей додаток призначений для використання тільки всередині Telegram.');
@@ -366,7 +368,6 @@ function App() {
 
     const authenticateUser = async (initData) => {
       try {
-        // Відправляємо дані, надані Telegram, на наш бекенд
         const response = await fetch(`${BACKEND_URL}/api/auth/webapp`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -381,7 +382,7 @@ function App() {
           setError('Помилка автентифікації на сервері.');
         }
       } catch (err) {
-        setError(err);
+        setError('Не вдалося зв\'язатися з сервером.');
       } finally {
         setIsLoading(false);
       }
@@ -392,13 +393,12 @@ function App() {
         authenticateUser(tg.initData);
     }
     
-  }, [tg]); // Цей ефект залежить від готовності об'єкта tg
+  }, [tg]);
 
   if (isLoading) {
     return <Loader />;
   }
   
-  // Якщо є помилка або ми не всередині Telegram і користувач не залогінений
   if (error || !user) {
       return (
           <div className="auth-error-container">
@@ -408,11 +408,9 @@ function App() {
       );
   }
 
-  // Якщо все добре, показуємо основний додаток
   return (
     <Router>
       <div className="app-container">
-        {/* Хедер тепер ніколи не покаже кнопку "Увійти" */}
         <Header user={user} />
         <main>
           <Routes>
@@ -429,4 +427,6 @@ function App() {
 }
 
 export default App;
+
+
 
