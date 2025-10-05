@@ -310,17 +310,7 @@ const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 
 // export default App;
 
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Переконайтесь, що шляхи до ваших компонентів правильні
-import Header from './components/Header';
-import HomePage from './pages/HomePage';
-import CasePage from './pages/CasePage';
-import Loader from './components/Loader';
-import './App.css';
-
-const BACKEND_URL = 'https://back-for-project.onrender.com';
 
 // Спеціальний хук для зручної роботи з Telegram Web App
 const useTelegram = () => {
@@ -382,7 +372,7 @@ function App() {
           setError('Помилка автентифікації на сервері.');
         }
       } catch (err) {
-        setError('Не вдалося зв\'язатися з сервером.');
+        setError(err);
       } finally {
         setIsLoading(false);
       }
