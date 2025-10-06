@@ -79,7 +79,7 @@ import  { useEffect, useRef, useState } from 'react';
  * Він динамічно завантажує скрипт віджета Telegram.
  *
  * @param {object} props - Пропси компонента.
-//  * @param {string} props.botName - Ім'я вашого бота (напр., "samplebot").
+ * @param {string} props.botName - Ім'я вашого бота (напр., "samplebot").
  * @param {'large' | 'medium' | 'small'} [props.buttonSize='large'] - Розмір кнопки.
  * @param {boolean} [props.requestAccess=true] - Чи запитувати дозвіл на надсилання повідомлень.
  * @param {(user: object) => void} props.onAuth - Callback-функція, яка викликається з даними користувача після успішної авторизації.
@@ -110,7 +110,7 @@ const TelegramLoginButton = ({ botName, buttonSize = 'large', requestAccess = tr
     script.async = true;
 
     // Встановлюємо атрибути для налаштування віджета
-    script.setAttribute('data-telegram-login', "Sanyajjj_bot");
+    script.setAttribute('data-telegram-login', botName);
     script.setAttribute('data-size', buttonSize);
     // Вказуємо нашу глобальну callback-функцію
     script.setAttribute('data-onauth', callbackName + '(user)');
@@ -163,7 +163,7 @@ export default function App() {
           <p>Будь ласка, увійдіть за допомогою Telegram:</p>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <TelegramLoginButton
-              botName="samplebot" // <-- ВАЖЛИВО: замініть на ім'я вашого бота
+              botName="Sanyajjj_bot" // <-- ВАЖЛИВО: замініть на ім'я вашого бота
               onAuth={handleTelegramAuth}
               buttonSize="large"
             />
