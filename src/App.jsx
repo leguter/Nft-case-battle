@@ -1,191 +1,192 @@
 
-// import './App.css'
-// // import CaseList from './components/CaseList/CaseList';
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import Header from "./components/Header/Header";
-// import HomePage from './pages/HomePage/HomePage';
-// import CasePage from './pages/CasePage/CasePage';
-// import LoginPage from './pages/LoginPage/LoginPage';
-// import Loader from './components/Loader/Loader';
+import './App.css'
+// import CaseList from './components/CaseList/CaseList';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from "./components/Header/Header";
+import HomePage from './pages/HomePage/HomePage';
+import CasePage from './pages/CasePage/CasePage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import Loader from './components/Loader/Loader';
 
 
 
-// import  { useState, useEffect } from 'react';
-// // import LoginModal from './components/LoginModal/LoginModal';
-// // import AuthCallbackPage from './pages/AuthCallbackPage/AuthCallbackPage';
+import  { useState, useEffect } from 'react';
+// import LoginModal from './components/LoginModal/LoginModal';
+// import AuthCallbackPage from './pages/AuthCallbackPage/AuthCallbackPage';
 
 
-// const BACKEND_URL = 'https://back-for-project-1.onrender.com';
+const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 
-// function App() {
-//   const [user, setUser] = useState(null);
-//   const [isLoading, setIsLoading] = useState(true);
-
-//   useEffect(() => {
-//     const checkAuthStatus = async () => {
-//       const token = localStorage.getItem('accessToken');
-//       if (token) {
-//         try {
-//           const response = await fetch(`${BACKEND_URL}/api/profile`, {
-//             headers: { 'Authorization': `Bearer ${token}` }
-//           });
-//           if (response.ok) {
-//             const data = await response.json();
-//             console.log(data)
-//             setUser(data.user);
-//           } else {
-//             localStorage.removeItem('accessToken');
-//             setUser(null);
-//           }
-//         } catch (error) {
-//           console.error('Помилка перевірки токену:', error);
-//           setUser(null);
-//         }
-//       }
-//       setIsLoading(false);
-//     };
-//     checkAuthStatus();
-//   }, []);
-
-//   if (isLoading) {
-//     return <Loader />;
-//   }
-
-//   return (
-//     <Router>
-//       <div className="app-container">
-//         <Header user={user} />
-//         <main>
-//           <Routes>
-//             <Route path="/" element={<HomePage />} />
-//             <Route path="/login" element={<LoginPage />} />
-//             <Route 
-//               path="/case/:caseId" 
-//               element={<CasePage user={user} setUser={setUser} />} 
-//             />
-//           </Routes>
-//         </main>
-//       </div>
-//     </Router>
-//   );
-// }
-
-// export default App;
-
-import  { useEffect, useRef, useState } from 'react';
-
-/**
- * Компонент кнопки входу через Telegram.
- * Він динамічно завантажує скрипт віджета Telegram.
- *
- * @param {object} props - Пропси компонента.
- * @param {string} props.botName - Ім'я вашого бота (напр., "samplebot").
- * @param {'large' | 'medium' | 'small'} [props.buttonSize='large'] - Розмір кнопки.
- * @param {boolean} [props.requestAccess=true] - Чи запитувати дозвіл на надсилання повідомлень.
- * @param {(user: object) => void} props.onAuth - Callback-функція, яка викликається з даними користувача після успішної авторизації.
- */
-const TelegramLoginButton = ({ botName, buttonSize = 'large', requestAccess = true, onAuth }) => {
-  const scriptContainerRef = useRef(null);
+function App() {
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Перевіряємо, чи існує контейнер для скрипта
-    if (!scriptContainerRef.current) {
-      return;
-    }
-
-    // Створюємо унікальне ім'я для callback-функції, щоб уникнути конфліктів,
-    // якщо на сторінці буде декілька таких кнопок.
-    const callbackName = `onTelegramAuth_${Math.floor(Math.random() * 1000000)}`;
-
-    // Робимо нашу callback-функцію доступною глобально,
-    // щоб скрипт Telegram міг її викликати.
-    window[callbackName] = (user) => {
-      // Передаємо дані користувача у функцію, отриману через пропси.
-      onAuth(user);
-    };
-
-    // Створюємо елемент скрипта
-    const script = document.createElement('script');
-    script.src = "https://telegram.org/js/telegram-widget.js?22";
-    script.async = true;
-
-    // Встановлюємо атрибути для налаштування віджета
-    script.setAttribute('data-telegram-login', botName);
-    script.setAttribute('data-size', buttonSize);
-    // Вказуємо нашу глобальну callback-функцію
-    script.setAttribute('data-onauth', callbackName + '(user)');
-
-    if (requestAccess) {
-      script.setAttribute('data-request-access', 'write');
-    }
-
-    // Додаємо скрипт до контейнера. Віджет з'явиться в цьому місці.
-    scriptContainerRef.current.appendChild(script);
-
-    // Функція очищення, яка виконається при демонтуванні компонента
-    return () => {
-      // Видаляємо скрипт
-      if (scriptContainerRef.current) {
-        // Очищуємо вміст контейнера
-        scriptContainerRef.current.innerHTML = '';
+    const checkAuthStatus = async () => {
+      const token = localStorage.getItem('accessToken');
+      if (token) {
+        try {
+          const response = await fetch(`${BACKEND_URL}/api/profile`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data)
+            setUser(data.user);
+          } else {
+            localStorage.removeItem('accessToken');
+            setUser(null);
+          }
+        } catch (error) {
+          console.error('Помилка перевірки токену:', error);
+          setUser(null);
+        }
       }
-      // Видаляємо глобальну callback-функцію, щоб уникнути витоків пам'яті
-      delete window[callbackName];
+      setIsLoading(false);
     };
-    // Залежності хука: ефект спрацює знову, якщо зміняться ці пропси.
-  }, [botName, buttonSize, requestAccess, onAuth]);
+    checkAuthStatus();
+  }, []);
 
-  // Повертаємо div, який буде контейнером для віджета
-  return <div ref={scriptContainerRef} />;
-};
-
-
-// --- Приклад використання компонента ---
-
-export default function App() {
-  const [user, setUser] = useState(null);
-
-  /**
-   * Обробник даних після успішної авторизації.
-   * @param {object} telegramUser - Об'єкт з даними користувача від Telegram.
-   */
-  const handleTelegramAuth = (telegramUser) => {
-    console.log("Отримано дані користувача:", telegramUser);
-    // Тут ви можете відправити дані на свій бекенд для валідації та створення сесії
-    setUser(telegramUser);
-  };
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', textAlign: 'center', marginTop: '50px' }}>
-      <h1>React Telegram Login</h1>
-      {!user ? (
-        <div>
-          <p>Будь ласка, увійдіть за допомогою Telegram:</p>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <TelegramLoginButton
-              botName="Sanyajjj_bot" // <-- ВАЖЛИВО: замініть на ім'я вашого бота
-              onAuth={handleTelegramAuth}
-              buttonSize="large"
+    <Router>
+      <div className="app-container">
+        <Header user={user} />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route 
+              path="/case/:caseId" 
+              element={<CasePage user={user} setUser={setUser} />} 
             />
-          </div>
-        </div>
-      ) : (
-        <div>
-          <h2>Вітаємо, {user.first_name}!</h2>
-          <img src={user.photo_url} alt={`Фото ${user.first_name}`} style={{ borderRadius: '50%', border: '2px solid #0088cc' }} />
-          <p>Ваш ID: <code>{user.id}</code></p>
-          <p>Ім'я користувача: @{user.username}</p>
-          <button onClick={() => setUser(null)} style={{ padding: '10px 20px', cursor: 'pointer', border: 'none', background: '#ccc', borderRadius: '5px' }}>
-            Вийти
-          </button>
-        </div>
-      )}
-    </div>
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 
+export default App;
+// ________________________________________________________________
+
+// import  { useEffect, useRef, useState } from 'react';
+
+// /**
+//  * Компонент кнопки входу через Telegram.
+//  * Він динамічно завантажує скрипт віджета Telegram.
+//  *
+//  * @param {object} props - Пропси компонента.
+//  * @param {string} props.botName - Ім'я вашого бота (напр., "samplebot").
+//  * @param {'large' | 'medium' | 'small'} [props.buttonSize='large'] - Розмір кнопки.
+//  * @param {boolean} [props.requestAccess=true] - Чи запитувати дозвіл на надсилання повідомлень.
+//  * @param {(user: object) => void} props.onAuth - Callback-функція, яка викликається з даними користувача після успішної авторизації.
+//  */
+// const TelegramLoginButton = ({ botName, buttonSize = 'large', requestAccess = true, onAuth }) => {
+//   const scriptContainerRef = useRef(null);
+
+//   useEffect(() => {
+//     // Перевіряємо, чи існує контейнер для скрипта
+//     if (!scriptContainerRef.current) {
+//       return;
+//     }
+
+//     // Створюємо унікальне ім'я для callback-функції, щоб уникнути конфліктів,
+//     // якщо на сторінці буде декілька таких кнопок.
+//     const callbackName = `onTelegramAuth_${Math.floor(Math.random() * 1000000)}`;
+
+//     // Робимо нашу callback-функцію доступною глобально,
+//     // щоб скрипт Telegram міг її викликати.
+//     window[callbackName] = (user) => {
+//       // Передаємо дані користувача у функцію, отриману через пропси.
+//       onAuth(user);
+//     };
+
+//     // Створюємо елемент скрипта
+//     const script = document.createElement('script');
+//     script.src = "https://telegram.org/js/telegram-widget.js?22";
+//     script.async = true;
+
+//     // Встановлюємо атрибути для налаштування віджета
+//     script.setAttribute('data-telegram-login', botName);
+//     script.setAttribute('data-size', buttonSize);
+//     // Вказуємо нашу глобальну callback-функцію
+//     script.setAttribute('data-onauth', callbackName + '(user)');
+
+//     if (requestAccess) {
+//       script.setAttribute('data-request-access', 'write');
+//     }
+
+//     // Додаємо скрипт до контейнера. Віджет з'явиться в цьому місці.
+//     scriptContainerRef.current.appendChild(script);
+
+//     // Функція очищення, яка виконається при демонтуванні компонента
+//     return () => {
+//       // Видаляємо скрипт
+//       if (scriptContainerRef.current) {
+//         // Очищуємо вміст контейнера
+//         scriptContainerRef.current.innerHTML = '';
+//       }
+//       // Видаляємо глобальну callback-функцію, щоб уникнути витоків пам'яті
+//       delete window[callbackName];
+//     };
+//     // Залежності хука: ефект спрацює знову, якщо зміняться ці пропси.
+//   }, [botName, buttonSize, requestAccess, onAuth]);
+
+//   // Повертаємо div, який буде контейнером для віджета
+//   return <div ref={scriptContainerRef} />;
+// };
 
 
+// // --- Приклад використання компонента ---
+
+// export default function App() {
+//   const [user, setUser] = useState(null);
+
+//   /**
+//    * Обробник даних після успішної авторизації.
+//    * @param {object} telegramUser - Об'єкт з даними користувача від Telegram.
+//    */
+//   const handleTelegramAuth = (telegramUser) => {
+//     console.log("Отримано дані користувача:", telegramUser);
+//     // Тут ви можете відправити дані на свій бекенд для валідації та створення сесії
+//     setUser(telegramUser);
+//   };
+
+//   return (
+//     <div style={{ fontFamily: 'Arial, sans-serif', textAlign: 'center', marginTop: '50px' }}>
+//       <h1>React Telegram Login</h1>
+//       {!user ? (
+//         <div>
+//           <p>Будь ласка, увійдіть за допомогою Telegram:</p>
+//           <div style={{ display: 'flex', justifyContent: 'center' }}>
+//             <TelegramLoginButton
+//               botName="Sanyajjj_bot" // <-- ВАЖЛИВО: замініть на ім'я вашого бота
+//               onAuth={handleTelegramAuth}
+//               buttonSize="large"
+//             />
+//           </div>
+//         </div>
+//       ) : (
+//         <div>
+//           <h2>Вітаємо, {user.first_name}!</h2>
+//           <img src={user.photo_url} alt={`Фото ${user.first_name}`} style={{ borderRadius: '50%', border: '2px solid #0088cc' }} />
+//           <p>Ваш ID: <code>{user.id}</code></p>
+//           <p>Ім'я користувача: @{user.username}</p>
+//           <button onClick={() => setUser(null)} style={{ padding: '10px 20px', cursor: 'pointer', border: 'none', background: '#ccc', borderRadius: '5px' }}>
+//             Вийти
+//           </button>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+
+// __________________________________________________________
 
 
 
