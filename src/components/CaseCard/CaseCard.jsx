@@ -5,8 +5,8 @@ import css from "./CaseCard.module.css"
 import knifeFadeImg from '../../../public/images-cases/g1.png';
 import giftBoxImg from '../../../public/images-cases/g2.png';
 import telegramPackImg from '../../../public/images-cases/g3.png';
-import cryptoImg from '../../../public/images-cases/g4.png';
-import pixelImg from '../../../public/images-cases/g5.png';
+import cryptoImg from '/images-cases/g4.png';
+import pixelImg from '/images-cases/g5.png';
 // ... імпортуйте інші зображення
 
 // Мапуємо назви файлів на імпортовані модулі
