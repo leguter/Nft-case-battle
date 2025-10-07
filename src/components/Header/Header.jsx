@@ -128,16 +128,19 @@ const Header = ({ user }) => {
 
 
         {user ? (
-          <div className="flex items-center gap-4">
-            <div className="text-right">
-              <p className="font-semibold">{user.firstName || user.username}</p>
-              <p className="text-yellow-400 font-bold">{user.balance} 💎</p>
-            </div>
-            <img 
+
+         <div className={css.containerLogin1}>
+
+              <div className={css.logoLogin1}>
+                      <img 
               src={user.photoUrl || `https://placehold.co/48x48/777/FFF?text=${user.firstName?.[0] || 'U'}`} 
               alt="Avatar" 
-              className="w-12 h-12 rounded-full border-2 border-yellow-400"
+              className={css.logo}
             />
+              <p className="font-semibold">{user.firstName || user.username}</p>
+             
+            </div>
+       <p className={css.balance}>{user.balance} 💎</p>
           </div>
 
         // <div className={css.containerLogin1}>
