@@ -57,96 +57,107 @@ const TELEGRAM_BOT_USERNAME = 'Sanyajjj_bot';
 
 // export default Header;
 
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
-// --- НАЛАШТУВАННЯ ДЛЯ TELEGRAM LOGIN ---
-const TELEGRAM_BOT_ID = '8320276216'; // ID вашого бота (цифри)
-const YOUR_SITE_ORIGIN = 'https://nft-case-battle.vercel.app';
-// URL, куди Telegram поверне користувача після входу
-const RETURN_URL = `${YOUR_SITE_ORIGIN}/auth/telegram/callback`;
+// // --- НАЛАШТУВАННЯ ДЛЯ TELEGRAM LOGIN ---
+// const TELEGRAM_BOT_ID = '8320276216'; // ID вашого бота (цифри)
+// const YOUR_SITE_ORIGIN = 'https://nft-case-battle.vercel.app';
+// // URL, куди Telegram поверне користувача після входу
+// const RETURN_URL = `${YOUR_SITE_ORIGIN}/auth/telegram/callback`;
 
-// Повне посилання для авторизації, яке ми будемо використовувати
-const telegramLoginUrl = `https://oauth.telegram.org/auth?bot_id=${TELEGRAM_BOT_ID}&origin=${encodeURIComponent(YOUR_SITE_ORIGIN)}&return_to=${encodeURIComponent(RETURN_URL)}`;
-// const telegramLoginUrl1 = 'https://oauth.telegram.org/auth?bot_id=YOUR_BOT_ID&scope=YOUR_SCOPE&public_key=YOUR_PUBLIC_KEY&nonce=YOUR_NONCE'
+// // Повне посилання для авторизації, яке ми будемо використовувати
+// const telegramLoginUrl = `https://oauth.telegram.org/auth?bot_id=${TELEGRAM_BOT_ID}&origin=${encodeURIComponent(YOUR_SITE_ORIGIN)}&return_to=${encodeURIComponent(RETURN_URL)}`;
+// // const telegramLoginUrl1 = 'https://oauth.telegram.org/auth?bot_id=YOUR_BOT_ID&scope=YOUR_SCOPE&public_key=YOUR_PUBLIC_KEY&nonce=YOUR_NONCE'
 
-const Header = ({ user }) => {
+// const Header = ({ user }) => {
 
   
-  const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    window.location.reload();
-  };
+//   const handleLogout = () => {
+//     localStorage.removeItem('accessToken');
+//     window.location.reload();
+//   };
   
-  return (
-    <header className={css.container}>
-       <Logo />
-      <Link to="/" className={css.name}>NFT CASE BATTLE</Link>
-      <div className={css.userInfoContainer}> 
-        {user ? (
-          <>
-            <div>
-              <p>{user.firstName || user.username}</p>
-              <p className={css.balance}>{user.balance} 💎</p>
-            </div>
-            <img 
-              src={user.photoUrl || `https://placehold.co/48x48/777/FFF?text=${user.firstName?.[0] || 'U'}`} 
-              alt="Avatar" 
-              className={css.avatar}
-            />
-            <button onClick={handleLogout} className={css.logoutButton}>Вийти</button>
-          </>
-        ) : (
-          // Тепер це звичайне посилання, яке веде на сайт Telegram
+//   return (
+//     <header className={css.container}>
+//        <Logo />
+//       <Link to="/" className={css.name}>NFT CASE BATTLE</Link>
+//       <div className={css.userInfoContainer}> 
+//         {user ? (
+//           <>
+//             <div>
+//               <p>{user.firstName || user.username}</p>
+//               <p className={css.balance}>{user.balance} 💎</p>
+//             </div>
+//             <img 
+//               src={user.photoUrl || `https://placehold.co/48x48/777/FFF?text=${user.firstName?.[0] || 'U'}`} 
+//               alt="Avatar" 
+//               className={css.avatar}
+//             />
+//             <button onClick={handleLogout} className={css.logoutButton}>Вийти</button>
+//           </>
+//         ) : (
+//           // Тепер це звичайне посилання, яке веде на сайт Telegram
           
- <a href={telegramLoginUrl} className={css.btnLink}>
-            <button type="button" className={css.btn}>
-              Увійти
- <img className={css.icon} src="/tgicon.svg" width="16px" height="16px" alt="Telegram Icon"/>
-            </button>
-             </a> 
-        )}
-      </div>
-    </header>
-  );
-};
-
-export default Header;
-
-// Header.jsx
-// import { useState } from "react";
-// import LoginModal from "../LoginModal/LoginModal";
-
-// const Header = ({ user, setUser }) => {
-//   const [showLogin, setShowLogin] = useState(false);
-
-//   const handleLogout = () => {
-//     localStorage.removeItem("accessToken");
-//     setUser(null);
-//   };
-
-//   return (
-//     <header className="header-container">
-//       <h1>NFT CASE BATTLE</h1>
-//       <div className="user-info">
-//         {user ? (
-//           <>
-//             <p>{user.firstName || user.username}</p>
-//             <p>{user.balance} 💎</p>
-//             <img src={user.photoUrl || "https://placehold.co/48x48/777/FFF?text=U"} alt="Avatar" />
-//             <button onClick={handleLogout}>Вийти</button>
-//           </>
-//         ) : (
-//           <button onClick={() => setShowLogin(true)}>Увійти через Telegram</button>
-//         )}
-//       </div>
-
-//       {showLogin && <LoginModal setUser={setUser} onClose={() => setShowLogin(false)} />}
-//     </header>
-//   );
+//  <a href={telegramLoginUrl} className={css.btnLink}>
+//             <button type="button" className={css.btn}>
+//               Увійти
+//  <img className={css.icon} src="/tgicon.svg" width="16px" height="16px" alt="Telegram Icon"/>
+//             </button>
+//              </a> 
+//         )}
+//       </div>
+//     </header>
+//   );
 // };
 
 // export default Header;
 
+
+
+// --- Компоненти для чистоти коду ---
+
+// Компонент Хедера: динамічно показує профіль або кнопку входу
+const Header = ({ user }) => {
+        const botUsername = 'Sanyajjj_bot';
+  const telegramLoginUrl = `https://t.me/${botUsername}`;
+
+  return (
+    <header className="bg-gray-800 shadow-lg">
+      <div className={css.container}>
+ <Logo />
+<h1 className={css.name}>NFT CASE BATTLE </h1>
+
+
+        {user ? (
+          // Стан, коли користувач залогінений
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <p className="font-semibold">{user.firstName || user.username}</p>
+              <p className="text-yellow-400 font-bold">{user.balance} 💎</p>
+            </div>
+            <img 
+              src={user.photoUrl || `https://placehold.co/48x48/777/FFF?text=${user.firstName?.[0] || 'U'}`} 
+              alt="Avatar" 
+              className="w-12 h-12 rounded-full border-2 border-yellow-400"
+            />
+          </div>
+        ) : (
+          // Стан, коли користувач - гість
+         <a 
+        href={telegramLoginUrl} 
+        className={css.btnLink}
+        target="_blank" 
+        rel="noopener noreferrer"
+      >
+        <button type="button" className={css.btn} >Увійти<img className={css.icon} src="../../../public/tgicon.svg" width="16px" height="16px"></img></button>
+      </a>
+        )}
+      </div>
+    </header>
+  );
+};
+
+export default Header;
 
 
 
