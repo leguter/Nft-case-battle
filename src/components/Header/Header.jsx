@@ -137,7 +137,7 @@ const Header = ({ user }) => {
               alt="Avatar" 
               className={css.logo}
             />
-              <p className="font-semibold">{user.firstName || user.username}</p>
+              <p className={css.userName}>{user.firstName || user.username}</p>
              
             </div>
        <p className={css.balance}>{user.balance} 💎</p>
