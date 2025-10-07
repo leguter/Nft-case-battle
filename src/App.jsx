@@ -119,7 +119,7 @@ function App() {
     <Router>
       <div className="app-container">
         {/* Header отримує дані користувача, щоб знати, що показувати: профіль чи кнопку входу */}
-        <Header user={user} />
+        <Header  />
         <main>
           <Routes>
             {/* Маршрут для головної сторінки */}
@@ -132,7 +132,7 @@ function App() {
             <Route 
               path="/case/:caseId" 
               // CasePage отримує і дані користувача, і функцію для їх оновлення (щоб змінювати баланс)
-              element={<CasePage user={user} setUser={setUser} />} 
+              element={<CasePage  />} 
             />
           </Routes>
         </main>
