@@ -118,3 +118,22 @@
     margin-bottom: auto; */
     vertical-align: middle; 
 }
+/*                     HEADER LOGIN VERSION           */
+.containerLogin1{
+  display: flex;
+  align-items: center;
+   gap: '1rem';
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.logoLogin1{
+ display: flex;
+  align-items: center;
+    gap: 10px;
+   padding-right: 10px;
+
+}
+.balance {
+  font-weight: 'bold';
+   margin: 0;
+}

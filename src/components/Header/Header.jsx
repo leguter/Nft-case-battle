@@ -120,29 +120,52 @@ const TELEGRAM_BOT_USERNAME = 'Sanyajjj_bot';
 const Header = ({ user }) => {
         const botUsername = 'Sanyajjj_bot';
   const telegramLoginUrl = `https://t.me/${botUsername}`;
-
+ const userTrue = true;
   return (
     <header className="bg-gray-800 shadow-lg">
       <div className={css.container}>
- <Logo />
-<h1 className={css.name}>NFT CASE BATTLE </h1>
 
 
-        {user ? (
+
+        {userTrue ? (
           // Стан, коли користувач залогінений
-          <div className="flex items-center gap-4">
-            <div className="text-right">
-              <p className="font-semibold">{user.firstName || user.username}</p>
-              <p className="text-yellow-400 font-bold">{user.balance} 💎</p>
-            </div>
+        //   <div className="flex items-center gap-4">
+        //     <div className="text-right">
+        //       <p className="font-semibold">{user.firstName || user.username}</p>
+        //       <p className="text-yellow-400 font-bold">{user.balance} 💎</p>
+        //     </div>
+        //     <img 
+        //       src={user.photoUrl || `https://placehold.co/48x48/777/FFF?text=${user.firstName?.[0] || 'U'}`} 
+        //       alt="Avatar" 
+        //       className="w-12 h-12 rounded-full border-2 border-yellow-400"
+        //     />
+        //   </div>
+
+        <div className={css.containerLogin1}>
+              <div className={css.logoLogin1}>
             <img 
-              src={user.photoUrl || `https://placehold.co/48x48/777/FFF?text=${user.firstName?.[0] || 'U'}`} 
-              alt="Avatar" 
-              className="w-12 h-12 rounded-full border-2 border-yellow-400"
-            />
-          </div>
+                           src={`https://placehold.co/48x48/2c2c2c/FBBF24?text=N`} 
+                           alt="Avatar" 
+                           style={{
+                               width: '48px',
+                               height: '48px',
+                               borderRadius: '9999px',
+                               border: '2px solid #FBBF24'
+                           }}
+                        />
+                      
+                            <p style={{ fontWeight: '600', margin: 0 }}>NEPODEJDAEMIY</p>
+                            
+                        </div>
+
+                        <p  className={css.balance} >1337 💎</p>
+                        
+                         {/* <button onClick={1} >Вийти</button> */}
+                    </div>
         ) : (
-          // Стан, коли користувач - гість
+            <div className={css.container}>
+             <Logo />
+<h1 className={css.name}>NFT CASE BATTLE </h1>
          <a 
         href={telegramLoginUrl} 
         className={css.btnLink}
@@ -151,7 +174,10 @@ const Header = ({ user }) => {
       >
         <button type="button" className={css.btn} >Увійти<img className={css.icon} src="../../../public/tgicon.svg" width="16px" height="16px"></img></button>
       </a>
+       </div>
         )}
+    <div></div>
+
       </div>
     </header>
   );
