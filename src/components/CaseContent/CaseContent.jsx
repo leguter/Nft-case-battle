@@ -218,7 +218,7 @@ const CaseContent = ({ caseItem,user, setUser }) => {
       </span>
     </div>
                 {/* <span className={styles.stars}>{item.stars} ⭐</span> */}
-                <span className={styles.usd}>{item.tonPrice}<img className={styles.ton} src="/ton-symbol.svg" width="16px" height="16px"></img></span>
+                <span className={styles.usd}>{item.tonPrice}<img className={styles.ton} src="/public/ton-symbol.svg" width="16px" height="16px"></img></span>
               </div>
             </div>
           </div>
