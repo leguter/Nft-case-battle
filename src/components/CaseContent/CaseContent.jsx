@@ -147,33 +147,33 @@ const items = [
 const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 // Замініть на ім'я вашого бота
 const TELEGRAM_BOT_USERNAME = '@Sanyajjj_bot'; 
-const CaseContent = ({ caseItem,user }) => {
+const CaseContent = ({ caseItem,user, setUser }) => {
 
-  // const handleOpenCase = async () => {
-  //   const caseId = 'gift_case_1'; // ID кейсу, який відкриваємо
+  const handleOpenCase = async () => {
+    const caseId = 'gift_case_1'; // ID кейсу, який відкриваємо
     
-  //   try {
-  //     const response = await fetch(`${BACKEND_URL}/api/case/open`, {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       credentials: 'include', // Дуже важливо для відправки cookie сесії!
-  //       body: JSON.stringify({ caseId }),
-  //     });
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/case/open`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // Дуже важливо для відправки cookie сесії!
+        body: JSON.stringify({ caseId }),
+      });
 
-  //     const result = await response.json();
+      const result = await response.json();
 
-  //     if (response.ok) {
-  //       alert(`Вітаємо! Ви виграли ${result.wonItem.name}! Ваш новий баланс: ${result.newBalance} 💎`);
-  //       // Оновлюємо стан користувача, щоб баланс змінився миттєво без перезавантаження
-  //       setUser(prevUser => ({ ...prevUser, balance: result.newBalance }));
-  //     } else {
-  //       alert(`Помилка: ${result.message}`);
-  //     }
-  //   } catch (error) {
-  //     console.error('Не вдалося відкрити кейс:', error);
-  //     alert('Сталася мережева помилка. Спробуйте пізніше.');
-  //   }
-  // };
+      if (response.ok) {
+        alert(`Вітаємо! Ви виграли ${result.wonItem.name}! Ваш новий баланс: ${result.newBalance} 💎`);
+        // Оновлюємо стан користувача, щоб баланс змінився миттєво без перезавантаження
+        setUser(prevUser => ({ ...prevUser, balance: result.newBalance }));
+      } else {
+        alert(`Помилка: ${result.message}`);
+      }
+    } catch (error) {
+      console.error('Не вдалося відкрити кейс:', error);
+      alert('Сталася мережева помилка. Спробуйте пізніше.');
+    }
+  };
 
   return (
             <div className={styles.caseContentContainer}>
@@ -188,7 +188,7 @@ const CaseContent = ({ caseItem,user }) => {
         <div className="my-8 text-center">
             {user ? (
                 <button 
-                    onClick={1}
+                    onClick={handleOpenCase}
                     className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-full text-2xl transition transform hover:scale-105 shadow-lg"
                 >
                     Відкрити Кейс (150 💎)
