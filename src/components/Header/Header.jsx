@@ -1,6 +1,7 @@
 
 import css from "./Header.module.css";
 import Logo from "../Logo/Logo"
+import { Link } from "react-router-dom";
 // URL вашого бекенду. Винесіть його в константу для зручності.
 const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 // Замініть на ім'я вашого бота
@@ -119,7 +120,7 @@ const TELEGRAM_BOT_USERNAME = 'Sanyajjj_bot';
 // Компонент Хедера: динамічно показує профіль або кнопку входу
 const Header = ({ user }) => {
         const botUsername = 'Sanyajjj_bot';
-  const telegramLoginUrl = `https://t.me/${botUsername}`;
+  // const telegramLoginUrl = `https://t.me/${botUsername}`;
 //  const userTrue = true;
   return (
     <header className="bg-gray-800 shadow-lg">
@@ -168,14 +169,9 @@ const Header = ({ user }) => {
             <div className={css.container}>
              <Logo />
 <h1 className={css.name}>NFT CASE BATTLE </h1>
-         <a 
-        href={telegramLoginUrl} 
-        className={css.btnLink}
-        target="_blank" 
-        rel="noopener noreferrer"
-      >
+   <Link to="/login" className={css.btnLink} >
         <button type="button" className={css.btn} >Увійти<img className={css.icon} src="../../../public/tgicon.svg" width="16px" height="16px"></img></button>
-      </a>
+    </Link>
        </div>
         )}
     <div></div>
