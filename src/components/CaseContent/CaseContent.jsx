@@ -191,7 +191,7 @@ const CaseContent = ({ caseItem,user, setUser }) => {
                     onClick={handleOpenCase}
                     className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-full text-2xl transition transform hover:scale-105 shadow-lg"
                 >
-                    Відкрити Кейс (150 💎)
+                    Відкрити Кейс (150 ⭐️)
                 </button>
             ) : (
                       <div className={styles.authAlert}>
@@ -218,7 +218,7 @@ const CaseContent = ({ caseItem,user, setUser }) => {
       </span>
     </div>
                 {/* <span className={styles.stars}>{item.stars} ⭐</span> */}
-                <span className={styles.usd}>{item.tonPrice}<img className={styles.ton} src="../../../public/ton-symbol.svg" width="16px" height="16px"></img></span>
+                <span className={styles.usd}>{item.tonPrice}<img className={styles.ton} src="/../../public/ton-symbol.svg" width="16px" height="16px"></img></span>
               </div>
             </div>
           </div>
