@@ -120,20 +120,28 @@
 }
 /*                     HEADER LOGIN VERSION           */
 .containerLogin1{
+  padding-left: 5px;
+  padding-right: 5px;
   display: flex;
   align-items: center;
-   gap: '1rem';
     padding-bottom: 10px;
     padding-top: 10px;
+    justify-content: space-around;
 }
 .logoLogin1{
  display: flex;
   align-items: center;
     gap: 10px;
-   padding-right: 10px;
+    padding-right: auto;
+ /* margin-right: auto; */
 
 }
 .balance {
   font-weight: 'bold';
-   margin: 0;
+   /* margin: 0; */
+  margin-left: 130px;
+}
+.userName {
+  width: 50px;
+  font-size: 13px;
 }
