@@ -35,7 +35,7 @@ const caseData = [
   {
     id: 'case-5',
     name: 'Cosmic NFT Capsule',
-    image: '/public/images-cases/4.jpg',
+    image: '/images-cases/4.jpg',
     price: '24',
     stars: '4600',
     rarity: 'Legendary',
