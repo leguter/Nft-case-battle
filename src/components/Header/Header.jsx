@@ -119,7 +119,7 @@ const TELEGRAM_BOT_USERNAME = 'Sanyajjj_bot';
 
 // Компонент Хедера: динамічно показує профіль або кнопку входу
 const Header = ({ user }) => {
-        const botUsername = 'Sanyajjj_bot';
+        // const botUsername = 'Sanyajjj_bot';
   // const telegramLoginUrl = `https://t.me/${botUsername}`;
 //  const userTrue = true;
   return (
@@ -141,7 +141,7 @@ const Header = ({ user }) => {
               <p className={css.userName}>{user.firstName || user.username}</p>
              
             </div>
-       <p className={css.balance}>{user.balance} 💎</p>
+       <p className={css.balance}>{user.balance} ⭐️</p>
           </div>
 
         // <div className={css.containerLogin1}>
@@ -168,7 +168,9 @@ const Header = ({ user }) => {
         ) : (
             <div className={css.container}>
              <Logo />
+             <Link to="/" className={css.name}>
 <h1 className={css.name}>NFT CASE BATTLE </h1>
+</Link>
    <Link to="/login" className={css.btnLink} >
         <button type="button" className={css.btn} >Увійти<img className={css.icon} src="../../../public/tgicon.svg" width="16px" height="16px"></img></button>
     </Link>
