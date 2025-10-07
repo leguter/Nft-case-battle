@@ -3,7 +3,7 @@ const caseData = [
   {
     id: 'case-1',
     name: 'Mystery Gift Box',
-    image: '/public/images-cases/1.jpg', // Шлях до зображення кейса
+    image: '/images-cases/1.jpg', // Шлях до зображення кейса
     price: '4',
     stars: '740',
     rarity: 'Legendary',
@@ -11,7 +11,7 @@ const caseData = [
   {
     id: 'case-2',
     name: 'Lucky Collectible Chest',
-    image: '/public/images-cases/1.jpg',
+    image: '/images-cases/1.jpg',
     price: '0.5',
     stars: '100',
     rarity: 'Epic',
@@ -19,7 +19,7 @@ const caseData = [
   {
     id: 'case-3',
     name: 'Telegram Treasure Case',
-    image: '/public/images-cases/2.jpg',
+    image: '/images-cases/2.jpg',
     price: '2',
     stars: '380',
     rarity: 'Mythic',
@@ -27,7 +27,7 @@ const caseData = [
   {
     id: 'case-4',
     name: 'Stellar Gift Crate',
-    image: '/public/images-cases/3.jpg',
+    image: '/images-cases/3.jpg',
     price: '5',
     stars: '900',
     rarity: 'Rare',
