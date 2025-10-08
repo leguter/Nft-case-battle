@@ -1,4 +1,5 @@
 import styles from './CaseContent.module.css'; // Імпорт CSS-модуля
+import CaseOpener from '../CaseOpener/CaseOpener';
 // const items = [
 //  { 
 //     name: 'ION GEM', 

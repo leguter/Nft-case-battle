@@ -1,9 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import  { useState, useRef, useEffect } from 'react';
 import css from './CaseOpener.module.css'; // Імпорт стилів як об'єкта 'css'
 
 // Пул предметів, які можуть випасти з кейса.
 // Вищі значення 'weight' означають вищу ймовірність.
-const itemPool =;
+const itemPool =[
+    { name: 'ION GEM', src: '/images-drop/ion-gem.png', tonPrice: '82', stars: '16958', type: 'Mythic' },
+    { name: 'SWISS WATCH', src: '/images-drop/swiss-watch.png', tonPrice: '37', stars: '8300', type: 'Legendary' },
+    { name: 'TOY BEAR', src: '/images-drop/bear.png', tonPrice: '25', stars: '5720', type: 'Epic' },
+    { name: 'CUPID CHARM', src: '/images-drop/cupid-charm.png', tonPrice: '10.50', stars: '2400', type: 'Rare' },
+    { name: 'SAKURA FLOWER', src: '/images-drop/flower.png', tonPrice: '5.04', stars: '1040', type: 'Common' },
+    { name: 'DESK CALENDAR', src: '/images-drop/calendar.png', tonPrice: '1.36', stars: '272', type: 'Common' },
+];
 
 // --- Утилітарна функція для вибору предмета за вагою ---
 const getWeightedRandomItem = (items) => {
@@ -22,9 +29,9 @@ const getWeightedRandomItem = (items) => {
 
 const CaseOpener = () => {
   // ВИПРАВЛЕНО: Додано імена для стану та функції його оновлення
-  const = useState(false);
-  const = useState();
-  const = useState({});
+    const [isSpinning, setIsSpinning] = useState(false);
+  const [rouletteItems, setRouletteItems] = useState([]);
+  const [transformStyle, setTransformStyle] = useState({});
   
   const reelRef = useRef(null);
   const reelContainerRef = useRef(null);
@@ -54,7 +61,7 @@ const CaseOpener = () => {
 
     // --- 1. Генерація довгої стрічки предметів для рулетки ---
     const REEL_LENGTH = 150;
-    const newRouletteItems =; // ВИПРАВЛЕНО: Ініціалізація порожнім масивом
+    const newRouletteItems =[]; // ВИПРАВЛЕНО: Ініціалізація порожнім масивом
     for (let i = 0; i < REEL_LENGTH; i++) {
       newRouletteItems.push(itemPool[Math.floor(Math.random() * itemPool.length)]);
     }
