@@ -21,6 +21,7 @@ const getWeightedRandomItem = (items) => {
 };
 
 const CaseOpener = () => {
+  // ВИПРАВЛЕНО: Додано імена для стану та функції його оновлення
   const = useState(false);
   const = useState();
   const = useState({});
@@ -44,7 +45,7 @@ const CaseOpener = () => {
     return () => {
       reelElement.removeEventListener('transitionend', handleTransitionEnd);
     };
-  },);
+  },); // Пустий масив залежностей, щоб ефект спрацював один раз
 
 
   const handleOpenCase = () => {
@@ -53,7 +54,7 @@ const CaseOpener = () => {
 
     // --- 1. Генерація довгої стрічки предметів для рулетки ---
     const REEL_LENGTH = 150;
-    const newRouletteItems =;
+    const newRouletteItems =; // ВИПРАВЛЕНО: Ініціалізація порожнім масивом
     for (let i = 0; i < REEL_LENGTH; i++) {
       newRouletteItems.push(itemPool[Math.floor(Math.random() * itemPool.length)]);
     }
