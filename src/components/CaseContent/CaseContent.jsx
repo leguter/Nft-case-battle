@@ -187,12 +187,15 @@ const CaseContent = ({ caseItem,user, setUser }) => {
         {/* Умовний рендеринг кнопки або повідомлення про авторизацію */}
         <div className="my-8 text-center">
             {user ? (
+              <div>
+              <CaseOpener />
                 <button 
                     onClick={handleOpenCase}
                     className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-full text-2xl transition transform hover:scale-105 shadow-lg"
                 >
                     Відкрити Кейс (150 ⭐️)
                 </button>
+                </div>
             ) : (
                       <div className={styles.authAlert}>
         <p>Ви не авторизовані!</p>
