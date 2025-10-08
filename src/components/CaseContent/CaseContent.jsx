@@ -180,9 +180,9 @@ const CaseContent = ({ caseItem,user, setUser }) => {
       <div className={styles.caseHeader}>
         {/* <button className={styles.backButton}>← НАЗАД</button> */}
         <h1 className={styles.caseTitle}>{caseItem.name}</h1>
-        <div className={styles.caseImageWrapper}>
+        {/* <div className={styles.caseImageWrapper}>
           <img src={caseItem.image} alt={caseItem.name} className={styles.caseMainImage} />
-        </div>
+        </div> */}
       </div>
         {/* Умовний рендеринг кнопки або повідомлення про авторизацію */}
         <div className="my-8 text-center">

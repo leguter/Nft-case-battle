@@ -1,0 +1,108 @@
+.caseOpenerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background-color: #1a1f25;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.rouletteWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 150px;
+  background-color: #101418;
+  border: 2px solid #3a414b;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.pointer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background-color: #e44d26;
+  box-shadow: 0 0 10px #e44d26;
+  z-index: 10;
+}
+
+.reel {
+  display: flex;
+  height: 100%;
+}
+
+.item {
+  flex-shrink: 0;
+  width: 150px;
+  height: 100%;
+  box-sizing: border-box;
+  border-right: 2px solid #2a2f37;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 10px;
+  background: linear-gradient(180deg, #2c333b 0%, #1e2328 100%);
+}
+
+.itemImage {
+  height: 70%;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.itemName {
+  color: #cdd5e0;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.item::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+}
+
+.item[data-rarity="common"]::before { background-color: #b0c3d9; }
+.item[data-rarity="uncommon"]::before { background-color: #5e98d9; }
+.item[data-rarity="rare"]::before { background-color: #4b69ff; }
+.item[data-rarity="epic"]::before { background-color: #8847ff; }
+.item[data-rarity="legendary"]::before { background-color: #d32ce6; }
+
+.openButton {
+  margin-top: 30px;
+  padding: 15px 40px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(180deg, #f76b1c 0%, #e44d26 100%);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.openButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(228, 77, 38, 0.4);
+}
+
+.openButton:disabled {
+  background: #555c66;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
