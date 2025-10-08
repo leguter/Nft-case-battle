@@ -146,7 +146,7 @@ const items = [
 ];
 const BACKEND_URL = 'https://back-for-project-1.onrender.com';
 // Замініть на ім'я вашого бота
-const TELEGRAM_BOT_USERNAME = '@Sanyajjj_bot'; 
+// const TELEGRAM_BOT_USERNAME = '@Sanyajjj_bot'; 
 const CaseContent = ({ caseItem,user, setUser }) => {
 
   const handleOpenCase = async () => {
